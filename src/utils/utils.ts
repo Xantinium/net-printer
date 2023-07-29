@@ -6,11 +6,7 @@ import * as CONFIG from '../../secrets.json';
 
 const iLovePdfApi = new ILovePDFApi(CONFIG.ILOVEPDF_PUBLIC_KEY, CONFIG.ILOVEPDF_SECRET_KEY);
 
-/**
- * Функция для преобразования: docx => pdf
- * @param {string} path
- */
-async function convertDocxToPdf(path) {
+async function convertDocxToPdf(path: string) {
     const task = iLovePdfApi.newTask('officepdf');
     await task.start();
     const file = new ILovePDFFile(path);
