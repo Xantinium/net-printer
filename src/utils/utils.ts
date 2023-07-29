@@ -2,11 +2,9 @@ import fs from 'node:fs';
 import { spawn } from 'child_process';
 import ILovePDFApi from '@ilovepdf/ilovepdf-nodejs';
 import ILovePDFFile from '@ilovepdf/ilovepdf-nodejs/ILovePDFFile.js';
+import * as CONFIG from '../../secrets.json';
 
-const PUBLIC_KEY = 'project_public_1945a4048e228c5d9aa0bfac6d45cd75_iSXRl0bcdc4c4f7b1ec34d78c405516aa1df5';
-const SECRET_KEY = 'secret_key_7abd132ce7f8d5ec7ae3f3593310eca5_TvQwW7683637cce998488a16559a27cb207b8';
-
-const iLovePdfApi = new ILovePDFApi(PUBLIC_KEY, SECRET_KEY);
+const iLovePdfApi = new ILovePDFApi(CONFIG.ILOVEPDF_PUBLIC_KEY, CONFIG.ILOVEPDF_SECRET_KEY);
 
 /**
  * Функция для преобразования: docx => pdf
