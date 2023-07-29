@@ -3,7 +3,7 @@ import * as CONFIG from '../../secrets.json';
 
 export function scan(fileName: string) {
     const promise = new Promise<void>((resolve) => {
-        const process = spawn(`scanimage --format=jpeg -d "${CONFIG.PRINTER_NAME}" > "/opt/net-printer/files/scans/${fileName}.jpg"`);
+        const process = spawn(`scanimage --format=jpeg -d "${CONFIG.PRINTER_NAME}" > "${__dirname}/files/scans/${fileName}.jpg"`);
 
         process.addListener('close', () => resolve());
     });
