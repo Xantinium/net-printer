@@ -22,13 +22,7 @@ async function convertDocxToPdf(path) {
 
 convertDocxToPdf('/home/vladislav/Downloads/test.docx');
 
-/**
- * Функция для создания дочернего процесса
- * @param {string} command 
- * @param {string[]} args 
- * @param {Buffer?} buffer 
- */
-async function spawnProcess(command, args, buffer = null) {
+async function spawnProcess(command: string, args: string[], buffer: Buffer = null) {
     const promise = new Promise((resolve, reject) => {
         const process = spawn(command, args);
 
