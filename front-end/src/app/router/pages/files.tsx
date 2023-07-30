@@ -10,7 +10,7 @@ export type FileType = {
 };
 
 const FilesPage: React.FC = () => {
-    const [files, setFiles] = useState<FileType[]>([]);
+    const [files, setFiles] = useState<FileType[] | null>(null);
     const [category, setCategory] = useState('prints');
 
     async function loadFiles(category: string) {
@@ -42,21 +42,23 @@ const FilesPage: React.FC = () => {
                     </ToggleButton>
                 </ToggleButtonGroup>
             </Box>
-            {files.length === 0 ? <Box sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: 24,
-            }}>
-                <SentimentDissatisfied sx={{fontSize: '108px'}} />
-                <Typography variant="h3">
-                    Пусто
-                </Typography>
-            </Box> : (
-                category === 'prints' ? <DocsContainer data={files} /> : <DocsContainer data={files} />
-            )}
+            {files !== null && <>
+                {files.length === 0 ? <Box sx={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: 24,
+                }}>
+                    <SentimentDissatisfied sx={{fontSize: '108px'}} />
+                    <Typography variant="h3">
+                        Пусто
+                    </Typography>
+                </Box> : (
+                    category === 'prints' ? <DocsContainer data={files} /> : <DocsContainer data={files} />
+                )}
+            </>}
         </Wrapper>
     );
 };
