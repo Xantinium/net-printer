@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Wrapper from '../wrapper';
 import { Box, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { SentimentDissatisfied } from '@mui/icons-material';
+import DocsContainer from '../../components/docs-container';
 
-type FileType = {
+export type FileType = {
     name: string
     path: string
 };
@@ -28,19 +30,33 @@ const FilesPage: React.FC = () => {
                     value={category}
                     onChange={(_, value) => setCategory(value)}
                 >
-                    <ToggleButton value="prints" sx={{paddingX: 2}}>
+                    <ToggleButton value="prints" sx={{paddingX: 3}}>
                         <Typography fontWeight={category === 'prints' ? 700 : 400}>
                             Доки
                         </Typography>
                     </ToggleButton>
-                    <ToggleButton value="scans" sx={{paddingX: 2}}>
+                    <ToggleButton value="scans" sx={{paddingX: 3}}>
                         <Typography fontWeight={category === 'scans' ? 700 : 400}>
                             Сканы
                         </Typography> 
                     </ToggleButton>
                 </ToggleButtonGroup>
             </Box>
-            {JSON.stringify(files, null, 4)}
+            {files.length === 0 ? <Box sx={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 24,
+            }}>
+                <SentimentDissatisfied sx={{fontSize: '108px'}} />
+                <Typography variant="h3">
+                    Пусто
+                </Typography>
+            </Box> : (
+                category === 'prints' ? <DocsContainer data={files} /> : <DocsContainer data={files} />
+            )}
         </Wrapper>
     );
 };
