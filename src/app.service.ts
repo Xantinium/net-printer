@@ -16,7 +16,14 @@ export class AppService {
 		return print(fileName);
 	}
 
-	async getFiles(category: Category) {
+	async getFiles(category: string): Promise<Array<{
+		name: string
+		path: string
+	}>> {
+		if (!['prints', 'scans'].includes(category)) {
+			return [];
+		}
+
 		const filesPath = category === 'prints' ? getPrintedFilesPath() : getScannedFilesPath();
 		
 		return new Promise((resolve) => {
