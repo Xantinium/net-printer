@@ -8,7 +8,8 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "nest build",
-    "start": "nest start"
+    "start:dev": "nest start",
+    "start": "node dist/src/main.js"
   },
   "dependencies": {
     "@ilovepdf/ilovepdf-nodejs": "^0.2.1",
