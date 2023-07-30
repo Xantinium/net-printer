@@ -33,11 +33,11 @@ export class AppController {
 
 	@Get('files/prints/:fileName')
 	getPrintedFile(@Param() params: { fileName: string }, @Res() res: Response) {
-		createReadStream(`api/${getPrintedFilesPath()}/${params.fileName}`).pipe(res);
+		createReadStream(`${getPrintedFilesPath()}/${params.fileName}`).pipe(res);
 	}
 
 	@Get('files/scans/:fileName')
 	getScannedFile(@Param() params: { fileName: string }, @Res() res: Response) {
-		createReadStream(`api/${getScannedFilesPath()}/${params.fileName}`).pipe(res);
+		createReadStream(`${getScannedFilesPath()}/${params.fileName}`).pipe(res);
 	}
 }

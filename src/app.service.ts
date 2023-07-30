@@ -30,7 +30,7 @@ export class AppService {
 			readdir(filesPath, (_, files) => {
 				resolve(files.map((el) => ({
 					name: el,
-					path: `files/${category}/${el}`,
+					path: `api/files/${category}/${el}`,
 				})));
 			});
 		});
