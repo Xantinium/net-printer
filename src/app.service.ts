@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { scan } from './utils/scan';
 import { print } from './utils/print';
 import { getPrintedFilesPath, getScannedFilesPath } from './utils/path';
-import fs from 'fs';
+import { readdir } from 'node:fs';
 
 export type Category = 'prints' | 'scans';
 
@@ -20,7 +20,7 @@ export class AppService {
 		const filesPath = category === 'prints' ? getPrintedFilesPath() : getScannedFilesPath();
 		
 		return new Promise((resolve) => {
-			fs.readdir(filesPath, (_, files) => {
+			readdir(filesPath, (_, files) => {
 				resolve(files.map((el) => ({
 					name: el,
 					path: `files/${category}/${el}`,
