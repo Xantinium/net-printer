@@ -15,6 +15,7 @@ const HomePage: React.FC = () => {
     return (
         <Wrapper>
             <LoadingButton
+                size="large"
                 variant="contained"
                 startIcon={<ScanIcon />}
                 loading={loading}

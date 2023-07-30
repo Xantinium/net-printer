@@ -1,4 +1,5 @@
-import HomePage from './pages/home'
+import HomePage from './pages/home';
+import FilesPage from './pages/files';
 import NotFoundPage from './pages/not-found';
 
 const ROUTES: Array<{
@@ -14,7 +15,7 @@ const ROUTES: Array<{
     {
         path: '/files',
         title: 'Файлики',
-        element: <HomePage />,
+        element: <FilesPage />,
     },
     {
         path: '*',
