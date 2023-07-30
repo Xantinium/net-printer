@@ -14,7 +14,7 @@ const FilesPage: React.FC = () => {
     const [category, setCategory] = useState('prints');
 
     async function loadFiles(category: string) {
-        const files = await fetch(`/api/files?category=${category}`) as unknown as FileType[];
+        const files = await (await fetch(`/api/files?category=${category}`)).json() as FileType[];
         setFiles(files);
     }
 
