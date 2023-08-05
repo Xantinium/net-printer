@@ -5,6 +5,7 @@ import { getScannedFilesPath } from './path';
 export function scan() {
     const fileName = `${Date.now()}.jpg`;
     const command = `scanimage --device-name=${CONFIG.PRINTER_NAME} --format=jpeg --resolution=75 --progress > ${getScannedFilesPath()}/${fileName}`;
+    console.log(command);
     
     const promise = new Promise<void>((resolve) => {
         exec(command, (error, stdout, stderr) => {
