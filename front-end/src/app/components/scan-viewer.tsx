@@ -40,7 +40,7 @@ const ScanViewer: React.FC<Props> = (props) => {
             onClose={() => setOpen(false)}
         >
             <Box sx={modalStyle}>
-                <img src={fileInfo.path} style={{width: '350px'}} />
+                <img src={fileInfo.path} style={{width: '500px'}} />
                 <Box sx={{display: 'flex', justifyContent: 'center', gap: '32px', mt: 4}}>
                     <Button
                         size="large"
