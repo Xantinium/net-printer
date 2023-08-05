@@ -63,7 +63,13 @@ const FilesPage: React.FC = () => {
                         Пусто
                     </Typography>
                 </Box> : (
-                    category === 'prints' ? <DocsContainer data={files} /> : <ScansContainer data={files} />
+                    category === 'prints' ? <DocsContainer
+                        data={files}
+                        onReload={() => loadFiles}
+                    /> : <ScansContainer
+                        data={files}
+                        onReload={() => loadFiles}
+                    />
                 )}
             </>}
         </Wrapper>

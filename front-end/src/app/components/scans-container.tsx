@@ -6,10 +6,11 @@ import ScanViewer from './scan-viewer';
 
 type Props = {
     data: FileType[]
+    onReload: () => void
 }
 
 const ScansContainer: React.FC<Props> = (props) => {
-    const { data } = props;
+    const { data, onReload } = props;
 
     const groupedData = React.useMemo(() => getGroups(data), [data]);
 
@@ -19,7 +20,7 @@ const ScansContainer: React.FC<Props> = (props) => {
                 {el.groupDate}
             </Typography>
                 <Box sx={{display: 'flex', gap: '18px', flexWrap: 'wrap'}}>
-                {el.files.map((item) => <ScanViewer key={item.name} fileInfo={item} />)}
+                {el.files.map((item) => <ScanViewer key={item.name} fileInfo={item} onRemove={onReload} />)}
             </Box>
         </Box>;
     });

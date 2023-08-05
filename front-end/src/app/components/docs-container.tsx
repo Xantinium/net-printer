@@ -5,6 +5,7 @@ import { getGroups } from './utils';
 
 type Props = {
     data: FileType[]
+    onReload: () => void
 }
 
 const DocsContainer: React.FC<Props> = (props) => {
