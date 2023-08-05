@@ -1,4 +1,4 @@
-import { exec } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import * as CONFIG from '../../secrets.json';
 import { getScannedFilesPath } from './path';
 
@@ -7,17 +7,19 @@ export function scan() {
     const command = `scanimage --device-name=${CONFIG.PRINTER_NAME} --format=jpeg --resolution=300 --progress > ${getScannedFilesPath()}/${fileName}`;
     
     const promise = new Promise<void>((resolve, reject) => {
-        const process = exec(command);
+        const process = spawn(command);
 
-        process.on('close', resolve);
-        process.on('error', reject);
-
-        process.on('message', (...data) => {
-            console.log('process', data);
+        process.stdout.on('data', (data) => {
+            console.log(data);
         })
-        process.stdout.on('data', (chunk) => {
-            console.log('chunk', chunk);
+
+        process.on('error', () => {
+            reject();
         });
+
+        process.on('close', () => {
+            resolve();
+        })
     });
     
     return promise;
