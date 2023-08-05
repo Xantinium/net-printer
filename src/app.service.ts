@@ -8,7 +8,7 @@ export type Category = 'prints' | 'scans';
 
 @Injectable()
 export class AppService {
-	scan(props: ScanProps): Promise<null | string> {
+	scan(props: ScanProps) {
 		return scan(props);
 	}
 

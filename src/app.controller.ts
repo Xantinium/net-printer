@@ -22,10 +22,16 @@ export class AppController {
 	constructor(private readonly appService: AppService) {}
 
 	@Get('scan')
-	scan(@Query() query: ScanQuery) {
-		return this.appService.scan({
-			resolution: query.resolution,
-		});
+	async scan(@Query() query: ScanQuery) {
+		try {
+			await this.appService.scan({
+				resolution: query.resolution,
+			});
+		} catch (error) {
+			return { errorMsg: error };
+		}
+		
+		return { errorMsg: null };
 	}
 
 	@Post('print')

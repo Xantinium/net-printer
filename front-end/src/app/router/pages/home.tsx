@@ -14,9 +14,9 @@ const HomePage: React.FC = () => {
 
     const onClick = async () => {
         setLoading(true);
-        const result: null | string = await (await fetch(`/api/scan?resolution=${resolution}`)).json();
+        const result: { errorMsg: string | null } = await (await fetch(`/api/scan?resolution=${resolution}`)).json();
         setLoading(false);
-        setAlertMessage(result);
+        setAlertMessage(result.errorMsg);
         setIsAlertOpen(true);
     };
 
