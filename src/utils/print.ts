@@ -33,7 +33,6 @@ async function createPrintProcess(command: string, args: string[]): Promise<stri
 
     return promise;
 }
-console.log(`${getPrintedFilesPath()}/${'test.pdf'}`);
 
 function print(fileName: string) {
     const args = [
