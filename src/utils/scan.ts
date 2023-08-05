@@ -6,10 +6,14 @@ export function scan() {
     const fileName = `${Date.now()}.jpg`;
     const command = `scanimage --device-name=${CONFIG.PRINTER_NAME} --format=jpeg --resolution=300 --progress > ${getScannedFilesPath()}/${fileName}`;
     
-    const promise = new Promise<void>((resolve) => {
-        exec(command, (error, stdout, stderr) => {
-            console.log(error, stdout, stderr);
-            resolve();
+    const promise = new Promise<void>((resolve, reject) => {
+        const process = exec(command);
+
+        process.addListener('close', resolve);
+        process.addListener('error', reject);
+
+        process.stdout.addListener('data', (chunk) => {
+            console.log(chunk);
         });
     });
     
