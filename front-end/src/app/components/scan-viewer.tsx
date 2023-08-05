@@ -15,7 +15,8 @@ const ScanViewer: React.FC<Props> = (props) => {
     const [open, setOpen] = useState(false);
 
     const deleteFile = async () => {
-        await fetch(`/api/remove_doc?name=${fileInfo.name}`);
+        await fetch(`/api/remove_scan?name=${fileInfo.name}`);
+        setOpen(false);
         onRemove();
     };
 
@@ -39,14 +40,15 @@ const ScanViewer: React.FC<Props> = (props) => {
                 transform: 'translate(-50%, -50%)',
                 width: 'fit-content',
                 bgcolor: '#ffffff',
-                border: '2px solid #000000',
                 boxShadow: 24,
                 p: 4,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                outline: 'none',
+                borderRadius: '12px',
             }}>
-                <img src={fileInfo.path} style={{width: '500px'}} />
+                <img src={fileInfo.path} style={{width: '550px'}} />
                 <Box sx={{display: 'flex', justifyContent: 'center', gap: '32px', mt: 4}}>
                     <Button
                         size="large"

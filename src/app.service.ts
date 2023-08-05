@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ScanProps, scan } from './utils/scan';
 import { print } from './utils/print';
 import { getPrintedFilesPath, getScannedFilesPath } from './utils/path';
-import { readdir } from 'node:fs';
+import { readdir, unlinkSync } from 'node:fs';
 
 export type Category = 'prints' | 'scans';
 
@@ -34,5 +34,10 @@ export class AppService {
 				})));
 			});
 		});
+	}
+
+	removeFile(category: Category, name: string) {
+		const path = `${category === 'scans' ? getScannedFilesPath() : getPrintedFilesPath()}/${name}`;
+		unlinkSync(path);
 	}
 }

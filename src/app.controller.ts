@@ -17,6 +17,10 @@ type ScanQuery = {
 	resolution: Resolution
 };
 
+type RemoveFileQuery = {
+	name: string
+};
+
 @Controller()
 export class AppController {
 	constructor(private readonly appService: AppService) {}
@@ -42,6 +46,11 @@ export class AppController {
 	@Get('files')
 	getFiles(@Query() query: GetFilesQuery) {
 		return this.appService.getFiles(query.category);
+	}
+
+	@Get('remove_scan')
+	removeScan(@Query() query: RemoveFileQuery) {
+		return this.appService.removeFile('scans', query.name);
 	}
 
 	@Get('files/prints/:fileName')
