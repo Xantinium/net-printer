@@ -8,6 +8,21 @@ type Props = {
     fileInfo: FileType
 };
 
+const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 'fit-content',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+};
+
 const ScanViewer: React.FC<Props> = (props) => {
     const { fileInfo } = props;
 
@@ -24,7 +39,7 @@ const ScanViewer: React.FC<Props> = (props) => {
             open={open}
             onClose={() => setOpen(false)}
         >
-            <Box p={4}>
+            <Box sx={modalStyle}>
                 <img src={fileInfo.path} style={{width: '350px'}} />
                 <Box sx={{display: 'flex', justifyContent: 'center', gap: '32px', mt: 4}}>
                     <Button
