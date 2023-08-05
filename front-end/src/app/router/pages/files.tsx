@@ -3,23 +3,30 @@ import Wrapper from '../wrapper';
 import { Box, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import { SentimentDissatisfied } from '@mui/icons-material';
 import DocsContainer from '../../components/docs-container';
+import ScansContainer from '../../components/scans-container';
 
 export type FileType = {
     name: string
     path: string
 };
 
+function getInitialCategory() {
+    const category = localStorage.getItem('category');
+    return category === null ? 'prints' : JSON.parse(category);
+}
+
 const FilesPage: React.FC = () => {
     const [files, setFiles] = useState<FileType[] | null>(null);
-    const [category, setCategory] = useState('prints');
+    const [category, setCategory] = useState(getInitialCategory());
 
     async function loadFiles(category: string) {
-        const files = await (await fetch(`/api/files?category=${category}`)).json() as FileType[];
+        const files: FileType[] = await (await fetch(`/api/files?category=${category}`)).json();
         setFiles(files);
     }
 
     useEffect(() => {
         loadFiles(category);
+        localStorage.setItem('category', JSON.stringify(category));
     }, [category]);
 
     return (
@@ -56,7 +63,7 @@ const FilesPage: React.FC = () => {
                         Пусто
                     </Typography>
                 </Box> : (
-                    category === 'prints' ? <DocsContainer data={files} /> : <DocsContainer data={files} />
+                    category === 'prints' ? <DocsContainer data={files} /> : <ScansContainer data={files} />
                 )}
             </>}
         </Wrapper>

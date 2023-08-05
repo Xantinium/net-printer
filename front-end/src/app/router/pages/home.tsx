@@ -6,11 +6,16 @@ import { Alert, Box, FormControl, InputLabel, MenuItem, Select, Snackbar } from 
 
 export type Resolution = 75 | 150 | 300 | 600;
 
+function getInitialResolution(): Resolution {
+    const resolution = localStorage.getItem('resolution');
+    return resolution === null ? 600 : JSON.parse(resolution) as Resolution;
+}
+
 const HomePage: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [isAlertOpen, setIsAlertOpen] = useState(false);
-    const [resolution, setResolution] = useState<Resolution>(600);
-    const [alertMessage, setAlertMessage] = useState<null | string>('');
+    const [alertMessage, setAlertMessage] = useState<null | string>(null);
+    const [resolution, setResolution] = useState<Resolution>(getInitialResolution());
 
     const onClick = async () => {
         setLoading(true);
@@ -40,7 +45,11 @@ const HomePage: React.FC = () => {
                             value={resolution}
                             label="Качество"
                             labelId="resolution"
-                            onChange={(event) => setResolution(event.target.value as Resolution)}
+                            onChange={(event) => {
+                                const value = event.target.value as Resolution;
+                                setResolution(value);
+                                localStorage.setItem('resolution', JSON.stringify(value));
+                            }}
                         >
                             <MenuItem value={75}>75 DPI</MenuItem>
                             <MenuItem value={150}>150 DPI</MenuItem>
@@ -50,17 +59,15 @@ const HomePage: React.FC = () => {
                     </FormControl>
                 </Box>
             </Wrapper>
-            <Snackbar
-                open={isAlertOpen}
-                autoHideDuration={5e3}
-                onClose={() => setIsAlertOpen(false)}
-            >
+            <Snackbar open={isAlertOpen}>
                 <Alert
+                    elevation={6}
+                    variant="filled"
                     sx={{ width: '100%' }}
                     onClose={() => setIsAlertOpen(false)}
                     severity={alertMessage === null ? 'success' : 'error'}
                 >
-                    {alertMessage === null ? 'Сканирование завершено!' : `Ошибка при сканировании: ${alertMessage}`}
+                    {alertMessage === null ? 'Сканирование завершено!' : `Сканирование не удалось: ${alertMessage}`}
                 </Alert>
             </Snackbar>
         </>
