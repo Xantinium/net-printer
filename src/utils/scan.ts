@@ -9,11 +9,14 @@ export function scan() {
     const promise = new Promise<void>((resolve, reject) => {
         const process = exec(command);
 
-        process.addListener('close', resolve);
-        process.addListener('error', reject);
+        process.on('close', resolve);
+        process.on('error', reject);
 
-        process.stdout.addListener('data', (chunk) => {
-            console.log(chunk);
+        process.on('message', (...data) => {
+            console.log('process', data);
+        })
+        process.stdout.on('data', (chunk) => {
+            console.log('chunk', chunk);
         });
     });
     
