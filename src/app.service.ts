@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { scan } from './utils/scan';
+import { ScanProps, scan } from './utils/scan';
 import { print } from './utils/print';
 import { getPrintedFilesPath, getScannedFilesPath } from './utils/path';
 import { readdir } from 'node:fs';
@@ -8,8 +8,8 @@ export type Category = 'prints' | 'scans';
 
 @Injectable()
 export class AppService {
-	scan() {
-		return scan();
+	scan(props: ScanProps): Promise<null | string> {
+		return scan(props);
 	}
 
 	print(fileName: string) {

@@ -3,6 +3,7 @@ import { AppService, Category } from './app.service';
 import { createReadStream } from 'fs';
 import { getPrintedFilesPath, getScannedFilesPath } from './utils/path';
 import { Response } from 'express';
+import { Resolution } from './utils/scan';
 
 type PrintBody = {
 	fileName: string
@@ -12,13 +13,19 @@ type GetFilesQuery = {
 	category: Category
 };
 
+type ScanQuery = {
+	resolution: Resolution
+};
+
 @Controller()
 export class AppController {
 	constructor(private readonly appService: AppService) {}
 
 	@Get('scan')
-	scan() {
-		return this.appService.scan();
+	scan(@Query() query: ScanQuery) {
+		return this.appService.scan({
+			resolution: query.resolution,
+		});
 	}
 
 	@Post('print')
