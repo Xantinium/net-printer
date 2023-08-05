@@ -65,10 +65,10 @@ const FilesPage: React.FC = () => {
                 </Box> : (
                     category === 'prints' ? <DocsContainer
                         data={files}
-                        onReload={() => loadFiles}
+                        onReload={() => loadFiles(category)}
                     /> : <ScansContainer
                         data={files}
-                        onReload={() => loadFiles}
+                        onReload={() => loadFiles(category)}
                     />
                 )}
             </>}

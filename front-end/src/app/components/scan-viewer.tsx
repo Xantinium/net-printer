@@ -20,7 +20,13 @@ const ScanViewer: React.FC<Props> = (props) => {
         onRemove();
     };
 
-    const downloadFile = () => {};
+    const downloadFile = () => {
+        const link = document.createElement('a');
+        link.download = fileInfo.name;
+        link.href = fileInfo.path;
+        link.click();
+        link.remove();
+    };
 
     return <>
         <Box
