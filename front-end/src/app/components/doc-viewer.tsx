@@ -3,7 +3,7 @@ import { Box, Button, Modal, Typography } from '@mui/material';
 import { FileType } from '../router/pages/files';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ScanIcon from '@mui/icons-material/Scanner';
+import PrintIcon from '@mui/icons-material/Print';
 
 type DocViewerProps = {
     fileInfo: FileType
@@ -67,7 +67,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
                         color="primary"
                         variant="contained"
                         onClick={printFile}
-                        startIcon={<ScanIcon />}
+                        startIcon={<PrintIcon />}
                     >
                         Печатать
                     </Button>
