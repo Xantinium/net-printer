@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
+import { Box, Button, Modal, Typography } from '@mui/material';
 import { FileType } from '../router/pages/files';
-import { Box, Button, Modal } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-type Props = {
+type DocViewerProps = {
     fileInfo: FileType
     onRemove: () => void
 };
 
-const ScanViewer: React.FC<Props> = (props) => {
+const DocViewer: React.FC<DocViewerProps> = (props) => {
     const { fileInfo, onRemove } = props;
 
     const [open, setOpen] = useState(false);
@@ -29,12 +29,9 @@ const ScanViewer: React.FC<Props> = (props) => {
     };
 
     return <>
-        <Box
-            onClick={() => setOpen(true)}
-            sx={{width: '160px', height: '160px', borderRadius: '12px', overflow: 'hidden', cursor: 'pointer'}}
-        >
-            <img src={fileInfo.path} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center'}} />
-        </Box>
+        <Typography variant="body2">
+            {fileInfo.name}
+        </Typography>
         <Modal
             open={open}
             onClose={() => setOpen(false)}
@@ -54,7 +51,7 @@ const ScanViewer: React.FC<Props> = (props) => {
                 outline: 'none',
                 borderRadius: '12px',
             }}>
-                <img src={fileInfo.path} style={{width: '400px'}} />
+                <iframe src={fileInfo.path} width={400} />
                 <Box sx={{display: 'flex', justifyContent: 'center', gap: '32px', mt: 4}}>
                     <Button
                         size="large"
@@ -77,7 +74,7 @@ const ScanViewer: React.FC<Props> = (props) => {
                 </Box>
             </Box>
         </Modal>
-    </>;
+    </>
 };
 
-export default ScanViewer;
+export default DocViewer;
