@@ -3,6 +3,7 @@ import { Box, Button, Modal, Typography } from '@mui/material';
 import { FileType } from '../router/pages/files';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ScanIcon from '@mui/icons-material/Scanner';
 
 type DocViewerProps = {
     fileInfo: FileType
@@ -26,6 +27,10 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
         link.href = fileInfo.path;
         link.click();
         link.remove();
+    };
+
+    const printFile = () => {
+        
     };
 
     return <>
@@ -57,6 +62,15 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
             }}>
                 <iframe src={fileInfo.path} width={1200} height={700} />
                 <Box sx={{display: 'flex', justifyContent: 'center', gap: '32px', mt: 4}}>
+                    <Button
+                        size="large"
+                        color="primary"
+                        variant="contained"
+                        onClick={printFile}
+                        startIcon={<ScanIcon />}
+                    >
+                        Печатать
+                    </Button>
                     <Button
                         size="large"
                         color="success"
