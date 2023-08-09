@@ -29,7 +29,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
     };
 
     return <>
-        <Typography variant="body2">
+        <Typography variant="body2" sx={{cursor: 'pointer'}}>
             {fileInfo.name}
         </Typography>
         <Modal
