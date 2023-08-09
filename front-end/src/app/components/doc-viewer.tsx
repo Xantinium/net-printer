@@ -55,7 +55,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
                 outline: 'none',
                 borderRadius: '12px',
             }}>
-                <iframe src={fileInfo.path} width={400} />
+                <iframe src={fileInfo.path} width={1200} height={700} />
                 <Box sx={{display: 'flex', justifyContent: 'center', gap: '32px', mt: 4}}>
                     <Button
                         size="large"
