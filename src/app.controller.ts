@@ -1,14 +1,10 @@
-import { Body, Controller, Get, Param, Post, Query, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { AppService, Category } from './app.service';
 import { createReadStream, appendFileSync } from 'fs';
 import { getPrintedFilesPath, getScannedFilesPath } from './utils/path';
 import { Response } from 'express';
 import { Resolution } from './utils/scan';
 import { FileInterceptor } from '@nestjs/platform-express';
-
-type PrintBody = {
-	fileName: string
-};
 
 type GetFilesQuery = {
 	category: Category
@@ -40,12 +36,8 @@ export class AppController {
 	}
 
 	@Post('print')
-	print(@Body() body: PrintBody) {
-		console.log(body);
-		if (!body.fileName) {
-			return;
-		}
-		return this.appService.print(body.fileName);
+	print(@Query() query: RemoveFileQuery) {
+		return this.appService.print(query.name);
 	}
 
 	@Get('files')
