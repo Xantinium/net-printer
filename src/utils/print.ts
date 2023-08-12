@@ -3,6 +3,7 @@ import * as CONFIG from '../../secrets.json';
 import { getPrintedFilesPath } from './path';
 
 async function createPrintProcess(command: string, args: string[]): Promise<string | null> {
+    console.log(`${command} ${args.join(' ')}`);
     const promise = new Promise<string | null>((resolve, reject) => {
         const process = exec(`${command} ${args.join(' ')}`);
 
