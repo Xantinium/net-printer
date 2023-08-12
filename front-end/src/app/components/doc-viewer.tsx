@@ -4,6 +4,7 @@ import { FileType } from '../router/pages/files';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PrintIcon from '@mui/icons-material/Print';
+import { LoadingButton } from '@mui/lab';
 
 type DocViewerProps = {
     fileInfo: FileType
@@ -14,6 +15,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
     const { fileInfo, onRemove } = props;
 
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const deleteFile = async () => {
         await fetch(`/api/remove_print?name=${fileInfo.name}`);
@@ -29,8 +31,13 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
         link.remove();
     };
 
-    const printFile = () => {
-        
+    const printFile = async () => {
+        setLoading(true);
+        await fetch(`/api/print`, {
+            method: 'POST',
+            body: JSON.stringify({ fileName: fileInfo.name }),
+        });
+        setLoading(false);
     };
 
     return <>
@@ -62,15 +69,16 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
             }}>
                 <iframe src={fileInfo.path} width={1200} height={700} />
                 <Box sx={{display: 'flex', justifyContent: 'center', gap: '32px', mt: 4}}>
-                    <Button
+                    <LoadingButton
                         size="large"
                         color="primary"
                         variant="contained"
                         onClick={printFile}
                         startIcon={<PrintIcon />}
+                        loading={loading}
                     >
                         Печатать
-                    </Button>
+                    </LoadingButton>
                     <Button
                         size="large"
                         color="success"
