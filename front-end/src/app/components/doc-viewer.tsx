@@ -16,7 +16,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
     const [open, setOpen] = useState(false);
 
     const deleteFile = async () => {
-        await fetch(`/api/remove_scan?name=${fileInfo.name}`);
+        await fetch(`/api/remove_print?name=${fileInfo.name}`);
         setOpen(false);
         onRemove();
     };
