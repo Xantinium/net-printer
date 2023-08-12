@@ -33,7 +33,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
 
     const printFile = async () => {
         setLoading(true);
-        await fetch(`/api/print?name=${fileInfo.name}`);
+        await fetch(`/api/print?name=${fileInfo.name}&timestamp=${Date.now()}`);
         setLoading(false);
     };
 

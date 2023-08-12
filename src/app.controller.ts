@@ -35,7 +35,7 @@ export class AppController {
 		return { errorMsg: null };
 	}
 
-	@Post('print')
+	@Get('print')
 	print(@Query() query: RemoveFileQuery) {
 		return this.appService.print(query.name);
 	}
