@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import Wrapper from '../wrapper';
 import { LoadingButton } from '@mui/lab';
 import ScanIcon from '@mui/icons-material/Scanner';
-import { Alert, Box, FormControl, InputLabel, MenuItem, Select, Snackbar } from '@mui/material';
+import UploadFile from '@mui/icons-material/UploadFile';
+import { Alert, Box, Button, Divider, FormControl, InputLabel, MenuItem, Select, Snackbar } from '@mui/material';
 
 export type Resolution = 75 | 150 | 300 | 600;
+
+const FILE_TYPES = ['application/pdf'];
 
 function getInitialResolution(): Resolution {
     const resolution = localStorage.getItem('resolution');
@@ -23,6 +26,22 @@ const HomePage: React.FC = () => {
         setLoading(false);
         setAlertMessage(result.errorMsg);
         setIsAlertOpen(true);
+    };
+
+    const onFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files === null) {
+            return;
+        }
+        const file = event.target.files[0];
+        if (!FILE_TYPES.includes(file.type)) {
+            return;
+        }
+        const payload = new FormData();
+        payload.append('file', file);
+        await fetch('/api/upload', {
+            method: 'POST',
+            body: payload,
+        });
     };
 
     return (
@@ -57,6 +76,22 @@ const HomePage: React.FC = () => {
                             <MenuItem value={600}>600 DPI</MenuItem>
                         </Select>
                     </FormControl>
+                </Box>
+                <Divider sx={{my: 4}} />
+                <Box>
+                    <Button
+                        variant="contained"
+                        component="label"
+                        size="large"
+                        startIcon={<UploadFile />}
+                    >
+                        Upload File
+                        <input
+                            type="file"
+                            hidden
+                            onChange={onFileChange}
+                        />
+                    </Button>
                 </Box>
             </Wrapper>
             <Snackbar open={isAlertOpen}>

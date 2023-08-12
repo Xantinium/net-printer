@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { AppService, Category } from './app.service';
-import { createReadStream } from 'fs';
+import { createReadStream, appendFileSync } from 'fs';
 import { getPrintedFilesPath, getScannedFilesPath } from './utils/path';
 import { Response } from 'express';
 import { Resolution } from './utils/scan';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 type PrintBody = {
 	fileName: string
@@ -48,6 +49,11 @@ export class AppController {
 		return this.appService.getFiles(query.category);
 	}
 
+	@Get('remove_print')
+	removePrint(@Query() query: RemoveFileQuery) {
+		return this.appService.removeFile('prints', query.name);
+	}
+
 	@Get('remove_scan')
 	removeScan(@Query() query: RemoveFileQuery) {
 		return this.appService.removeFile('scans', query.name);
@@ -61,5 +67,13 @@ export class AppController {
 	@Get('files/scans/:fileName')
 	getScannedFile(@Param() params: { fileName: string }, @Res() res: Response) {
 		createReadStream(`${getScannedFilesPath()}/${params.fileName}`).pipe(res);
+	}
+
+	@Post('upload')
+	@UseInterceptors(FileInterceptor('file'))
+	uploadFile(@UploadedFile() file: Express.Multer.File) {
+		const fileName = `${Date.now()}.pdf`;
+		const filePath = `${getPrintedFilesPath()}/${fileName}`;
+		appendFileSync(filePath, file.buffer);
 	}
 }
