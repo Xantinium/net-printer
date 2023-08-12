@@ -38,7 +38,7 @@ async function createPrintProcess(command: string, args: string[]): Promise<stri
 function print(fileName: string) {
     const args = [
         `-d ${CONFIG.PRINTER_NAME}`,
-        'media=A4',
+        '-o media=A4',
         `${getPrintedFilesPath()}/${fileName}`,
     ];
     return createPrintProcess('lp', args);
