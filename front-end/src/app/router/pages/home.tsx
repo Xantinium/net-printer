@@ -19,6 +19,7 @@ const HomePage: React.FC = () => {
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState<null | string>(null);
     const [resolution, setResolution] = useState<Resolution>(getInitialResolution());
+    const [isMsgOpen, setIsMsgOpen] = useState(false);
 
     const onClick = async () => {
         setLoading(true);
@@ -42,6 +43,7 @@ const HomePage: React.FC = () => {
             method: 'POST',
             body: payload,
         });
+        setIsMsgOpen(true);
     };
 
     return (
@@ -103,6 +105,17 @@ const HomePage: React.FC = () => {
                     severity={alertMessage === null ? 'success' : 'error'}
                 >
                     {alertMessage === null ? 'Сканирование завершено!' : `Сканирование не удалось: ${alertMessage}`}
+                </Alert>
+            </Snackbar>
+            <Snackbar open={isMsgOpen}>
+                <Alert
+                    elevation={6}
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                    onClose={() => setIsMsgOpen(false)}
+                    severity="success"
+                >
+                    Файл загружен!
                 </Alert>
             </Snackbar>
         </>
