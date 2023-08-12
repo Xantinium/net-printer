@@ -41,6 +41,10 @@ export class AppController {
 
 	@Post('print')
 	print(@Body() body: PrintBody) {
+		console.log(body);
+		if (!body.fileName) {
+			return;
+		}
 		return this.appService.print(body.fileName);
 	}
 
