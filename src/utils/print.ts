@@ -36,6 +36,7 @@ async function createPrintProcess(command: string, args: string[]): Promise<stri
 }
 
 function print(fileName: string) {
+    console.log(fileName);
     const args = [
         `-d ${CONFIG.PRINTER_NAME}`,
         'media=A4',
