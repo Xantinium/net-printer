@@ -73,7 +73,9 @@ export class AppController {
 		const fileName = `${Date.now()}.${type}`;
 		const filePath = `${getPrintedFilesPath()}/${fileName}`;
 		appendFileSync(filePath, file.buffer);
-		await convertDocxToPdf(fileName);
-		this.appService.removeFile('prints', fileName);
+		if (type === 'docx') {
+			await convertDocxToPdf(fileName);
+			this.appService.removeFile('prints', fileName);
+		}
 	}
 }
