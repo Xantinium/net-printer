@@ -3,11 +3,11 @@ import Wrapper from '../wrapper';
 import { LoadingButton } from '@mui/lab';
 import ScanIcon from '@mui/icons-material/Scanner';
 import UploadFile from '@mui/icons-material/UploadFile';
-import { Alert, Box, Button, Divider, FormControl, InputLabel, MenuItem, Select, Snackbar } from '@mui/material';
+import { Alert, Box, Divider, FormControl, InputLabel, MenuItem, Select, Snackbar } from '@mui/material';
 
 export type Resolution = 75 | 150 | 300 | 600;
 
-const FILE_TYPES = ['application/pdf'];
+const FILE_TYPES = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
 function getInitialResolution(): Resolution {
     const resolution = localStorage.getItem('resolution');
@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState<null | string>(null);
     const [resolution, setResolution] = useState<Resolution>(getInitialResolution());
-    const [isMsgOpen, setIsMsgOpen] = useState(false);
+    const [uploadState, setUploadState] = useState(0);
 
     const onClick = async () => {
         setLoading(true);
@@ -34,16 +34,17 @@ const HomePage: React.FC = () => {
             return;
         }
         const file = event.target.files[0];
-        if (!FILE_TYPES.includes(file.type)) {
+        if (!file || !FILE_TYPES.includes(file.type)) {
             return;
         }
+        setUploadState(1);
         const payload = new FormData();
         payload.append('file', file);
         await fetch('/api/upload', {
             method: 'POST',
             body: payload,
         });
-        setIsMsgOpen(true);
+        setUploadState(2);
     };
 
     return (
@@ -81,19 +82,21 @@ const HomePage: React.FC = () => {
                 </Box>
                 <Divider sx={{my: 4}} />
                 <Box>
-                    <Button
+                    <LoadingButton
                         variant="contained"
                         component="label"
                         size="large"
                         startIcon={<UploadFile />}
+                        loading={uploadState === 1}
                     >
                         Upload File
                         <input
                             type="file"
                             hidden
                             onChange={onFileChange}
+                            accept=".pdf,.docx"
                         />
-                    </Button>
+                    </LoadingButton>
                 </Box>
             </Wrapper>
             <Snackbar open={isAlertOpen}>
@@ -107,12 +110,12 @@ const HomePage: React.FC = () => {
                     {alertMessage === null ? 'Сканирование завершено!' : `Сканирование не удалось: ${alertMessage}`}
                 </Alert>
             </Snackbar>
-            <Snackbar open={isMsgOpen}>
+            <Snackbar open={uploadState === 2}>
                 <Alert
                     elevation={6}
                     variant="filled"
                     sx={{ width: '100%' }}
-                    onClose={() => setIsMsgOpen(false)}
+                    onClose={() => setUploadState(0)}
                     severity="success"
                 >
                     Файл загружен!
