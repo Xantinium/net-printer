@@ -1,4 +1,5 @@
-import fs from 'node:fs';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const fs = require('node:fs');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ILovePDFApi = require('@ilovepdf/ilovepdf-nodejs');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -15,9 +16,7 @@ async function convertDocxToPdf(fileName: string) {
     await task.addFile(file);
     await task.process();
     const data = await task.download();
-    console.log(data);
-    // fs.writeFileSync(`${getPrintedFilesPath()}/${fileName.slice(0, -5)}.pdf`, data);
-    fs.appendFileSync(`${getPrintedFilesPath()}/${fileName.slice(0, -5)}.pdf`, data);
+    fs.writeFileSync(`${getPrintedFilesPath()}/${fileName.slice(0, -5)}.pdf`, data);
 }
 
 export { convertDocxToPdf };
