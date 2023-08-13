@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 // import * as ILovePDFApi from '@ilovepdf/ilovepdf-nodejs';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const ILovePDFApi = require('@ilovepdf/ilovepdf-nodejs');
+const ILovePDFApi = require('@ilovepdf/ilovepdf-nodejs/ILovePDFApi');
 import ILovePDFFile from '@ilovepdf/ilovepdf-nodejs/ILovePDFFile';
 import * as CONFIG from '../../secrets.json';
 import { getPrintedFilesPath } from './path';
