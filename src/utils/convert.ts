@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import ILovePDFApi from '@ilovepdf/ilovepdf-nodejs';
+import ILovePDFApi from '@ilovepdf/ilovepdf-nodejs/ILovePDFApi';
 import ILovePDFFile from '@ilovepdf/ilovepdf-nodejs/ILovePDFFile.js';
 import * as CONFIG from '../../secrets.json';
 import { getPrintedFilesPath } from './path';
