@@ -5,6 +5,7 @@ import { getPrintedFilesPath, getScannedFilesPath } from './utils/path';
 import { Response } from 'express';
 import { Resolution } from './utils/scan';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { convertDocxToPdf } from './utils/convert';
 
 type GetFilesQuery = {
 	category: Category
@@ -67,9 +68,12 @@ export class AppController {
 
 	@Post('upload')
 	@UseInterceptors(FileInterceptor('file'))
-	uploadFile(@UploadedFile() file: Express.Multer.File) {
-		const fileName = `${Date.now()}.pdf`;
+	async uploadFile(@UploadedFile() file: Express.Multer.File) {
+		const type = file.mimetype === 'application/pdf' ? 'pdf' : 'docx';
+		const fileName = `${Date.now()}.${type}`;
 		const filePath = `${getPrintedFilesPath()}/${fileName}`;
 		appendFileSync(filePath, file.buffer);
+		await convertDocxToPdf(fileName);
+		this.appService.removeFile('prints', fileName);
 	}
 }
