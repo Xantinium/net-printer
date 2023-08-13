@@ -15,7 +15,9 @@ async function convertDocxToPdf(fileName: string) {
     await task.addFile(file);
     await task.process();
     const data = await task.download();
-    fs.writeFileSync(`${getPrintedFilesPath()}/${fileName.slice(0, -5)}.pdf`, data);
+    console.log(data);
+    // fs.writeFileSync(`${getPrintedFilesPath()}/${fileName.slice(0, -5)}.pdf`, data);
+    fs.appendFileSync(`${getPrintedFilesPath()}/${fileName.slice(0, -5)}.pdf`, data);
 }
 
 export { convertDocxToPdf };
