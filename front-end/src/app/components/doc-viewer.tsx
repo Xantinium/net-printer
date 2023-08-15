@@ -4,7 +4,7 @@ import { FileType } from '../router/pages/files';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PrintIcon from '@mui/icons-material/Print';
-import FileIcon from '@mui/icons-material/FileOpen';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 type DocViewerProps = {
     fileInfo: FileType
@@ -51,7 +51,15 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
             onClick={() => setOpen(true)}
         >
             {fileInfo.name}
-            <FileIcon onClick={() => setOpen(true)} sx={{cursor: 'pointer', ml: 1}} />
+            <VisibilityIcon onClick={() => setOpen(true)} sx={{
+                cursor: 'pointer',
+                ml: 1,
+                position: 'relative',
+                top: '6px',
+                ':hover': {
+                    opacity: 0.6,
+                },
+            }} />
         </Typography>
         <Modal
             open={open}
@@ -75,7 +83,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
                 <Box sx={{display: 'flex'}}>
                     <iframe src={fileInfo.path} width={1200} height={700} />
                     <Box ml={8} width="280px">
-                        <Typography mb={4} textAlign="center" variant="h4">Настройки печати</Typography>
+                        <Typography mb={4} textAlign="center" variant="h6">Настройки печати</Typography>
                         <FormControl sx={{width: '240px', mt: 4}}>
                             <InputLabel id="resolution">Качество</InputLabel>
                             <Select
