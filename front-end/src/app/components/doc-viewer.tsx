@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Button, FormControl, Input, InputLabel, MenuItem, Modal, Select, Typography } from '@mui/material';
+import { Box, Button, FormControl, TextField, InputLabel, MenuItem, Modal, Select, Typography } from '@mui/material';
 import { FileType } from '../router/pages/files';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PrintIcon from '@mui/icons-material/Print';
+import FileIcon from '@mui/icons-material/FileOpen';
 
 type DocViewerProps = {
     fileInfo: FileType
@@ -39,16 +40,18 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
     };
 
     const printFile = () => {
+        setOpen(false);
         fetch(`/api/print?name=${fileInfo.name}&timestamp=${Date.now()}&pages=${pages}&resolution=${resolution}`);
     };
 
     return <>
         <Typography
             variant="body2"
-            sx={{cursor: 'pointer', mt: 2}}
+            sx={{mt: 2}}
             onClick={() => setOpen(true)}
         >
             {fileInfo.name}
+            <FileIcon onClick={() => setOpen(true)} sx={{cursor: 'pointer', ml: 1}} />
         </Typography>
         <Modal
             open={open}
@@ -71,8 +74,8 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
             }}>
                 <Box sx={{display: 'flex'}}>
                     <iframe src={fileInfo.path} width={1200} height={700} />
-                    <Box ml={8}>
-                        <Typography mb={4} textAlign="center">Настройки печати</Typography>
+                    <Box ml={8} width="280px">
+                        <Typography mb={4} textAlign="center" variant="h4">Настройки печати</Typography>
                         <FormControl sx={{width: '240px', mt: 4}}>
                             <InputLabel id="resolution">Качество</InputLabel>
                             <Select
@@ -91,9 +94,10 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
                         </FormControl>
                         <FormControl sx={{width: '240px', mt: 4}}>
                             <InputLabel id="resolution">Странички</InputLabel>
-                            <Input
+                            <TextField
                                 type="text"
                                 value={pages}
+                                variant="filled"
                                 onChange={(event) => setPages(event.target.value)}
                             />
                         </FormControl>
