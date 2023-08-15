@@ -39,7 +39,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
     };
 
     const printFile = () => {
-        fetch(`/api/print?name=${fileInfo.name}&timestamp=${Date.now()}`);
+        fetch(`/api/print?name=${fileInfo.name}&timestamp=${Date.now()}&pages=${pages}&resolution=${resolution}`);
     };
 
     return <>
@@ -71,9 +71,9 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
             }}>
                 <Box sx={{display: 'flex'}}>
                     <iframe src={fileInfo.path} width={1200} height={700} />
-                    <Box ml={2}>
-                        <Typography mb={2}>Настройки печати</Typography>
-                        <FormControl sx={{width: '120px'}}>
+                    <Box ml={8}>
+                        <Typography mb={4} textAlign="center">Настройки печати</Typography>
+                        <FormControl sx={{width: '240px', mt: 4}}>
                             <InputLabel id="resolution">Качество</InputLabel>
                             <Select
                                 value={resolution}
@@ -89,7 +89,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
                                 <MenuItem value="601x600">601x600</MenuItem>
                             </Select>
                         </FormControl>
-                        <FormControl sx={{width: '120px'}}>
+                        <FormControl sx={{width: '240px', mt: 4}}>
                             <InputLabel id="resolution">Странички</InputLabel>
                             <Input
                                 type="text"
