@@ -15,6 +15,12 @@ type ScanQuery = {
 	resolution: Resolution
 };
 
+type PrintQuery = {
+	name: string
+	pages: string
+	resolution: string
+};
+
 type RemoveFileQuery = {
 	name: string
 };
@@ -37,8 +43,12 @@ export class AppController {
 	}
 
 	@Get('print')
-	print(@Query() query: RemoveFileQuery) {
-		return this.appService.print(query.name);
+	print(@Query() query: PrintQuery) {
+		return this.appService.print({
+			fileName: query.name,
+			resolution: query.resolution,
+			pages: query.pages,
+		});
 	}
 
 	@Get('files')

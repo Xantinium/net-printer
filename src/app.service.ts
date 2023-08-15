@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ScanProps, scan } from './utils/scan';
-import { print } from './utils/print';
+import { PrintOptions, print } from './utils/print';
 import { getPrintedFilesPath, getScannedFilesPath } from './utils/path';
 import { readdir, unlinkSync } from 'node:fs';
 
@@ -12,8 +12,8 @@ export class AppService {
 		return scan(props);
 	}
 
-	print(fileName: string) {
-		return print(fileName);
+	print(options: PrintOptions) {
+		return print(options);
 	}
 
 	async getFiles(category: string): Promise<Array<{

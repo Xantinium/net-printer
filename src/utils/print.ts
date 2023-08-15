@@ -2,6 +2,12 @@ import { exec } from 'child_process';
 import * as CONFIG from '../../secrets.json';
 import { getPrintedFilesPath } from './path';
 
+export type PrintOptions = {
+	fileName: string
+	resolution: string
+	pages: string
+};
+
 async function createPrintProcess(command: string, args: string[]): Promise<string | null> {
     const promise = new Promise<string | null>((resolve, reject) => {
         const process = exec(`${command} ${args.join(' ')}`);
@@ -34,13 +40,15 @@ async function createPrintProcess(command: string, args: string[]): Promise<stri
     return promise;
 }
 
-function print(fileName: string) {
+function print(options: PrintOptions) {
     const args = [
         `-d ${CONFIG.PRINTER_NAME}`,
         '-o media=A4',
-        `${getPrintedFilesPath()}/${fileName}`,
+        options.pages === '' ? null : `-o page-ranges=${options.pages}`,
+        `-o resolution=${options.resolution}`,
+        `${getPrintedFilesPath()}/${options.fileName}`,
     ];
-    return createPrintProcess('lp', args);
+    return createPrintProcess('lp', args.filter((el) => el !== null));
 }
 
 export { print };
