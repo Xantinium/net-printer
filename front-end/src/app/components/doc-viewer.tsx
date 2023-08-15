@@ -11,11 +11,11 @@ type DocViewerProps = {
     onRemove: () => void
 };
 
-type Resolution = '600x600' | '601x600';
+type Resolution = '300dpi' | '600dpi' | '601x600dpi' | '602x600dpi' | '603x600dpi' | '604x600dpi' | '605x600dpi' | '606x600dpi' | '607x600dpi';
 
 function getInitialResolution(): Resolution {
     const resolution = localStorage.getItem('print-resolution');
-    return resolution === null ? '600x600' : JSON.parse(resolution) as Resolution;
+    return resolution === null ? '601x600dpi' : JSON.parse(resolution) as Resolution;
 }
 
 const DocViewer: React.FC<DocViewerProps> = (props) => {
@@ -96,8 +96,15 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
                                     localStorage.setItem('resolution', JSON.stringify(value));
                                 }}
                             >
-                                <MenuItem value="600x600">600x600</MenuItem>
-                                <MenuItem value="601x600">601x600</MenuItem>
+                                <MenuItem value="300dpi">300 DPI</MenuItem>
+                                <MenuItem value="600dpi">600 DPI</MenuItem>
+                                <MenuItem value="601x600dpi">601x600 DPI</MenuItem>
+                                <MenuItem value="602x600dpi">602x600 DPI</MenuItem>
+                                <MenuItem value="603x600dpi">603x600 DPI</MenuItem>
+                                <MenuItem value="604x600dpi">604x600 DPI</MenuItem>
+                                <MenuItem value="605x600dpi">605x600 DPI</MenuItem>
+                                <MenuItem value="606x600dpi">606x600 DPI</MenuItem>
+                                <MenuItem value="607x600dpi">607x600 DPI</MenuItem>
                             </Select>
                         </FormControl>
                         <FormControl sx={{width: '240px', mt: 4}}>
