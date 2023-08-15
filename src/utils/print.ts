@@ -45,7 +45,7 @@ function print(options: PrintOptions) {
         `-d ${CONFIG.PRINTER_NAME}`,
         '-o media=A4',
         options.pages === '' ? null : `-o page-ranges=${options.pages}`,
-        `-o resolution=${options.resolution}`,
+        // `-o resolution=${options.resolution}`,
         `${getPrintedFilesPath()}/${options.fileName}`,
     ];
     return createPrintProcess('lp', args.filter((el) => el !== null));
