@@ -4,7 +4,7 @@ import { FileType } from '../router/pages/files';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PrintIcon from '@mui/icons-material/Print';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityIcon from '@mui/icons-material/VisibilityOutlined';
 
 type DocViewerProps = {
     fileInfo: FileType
