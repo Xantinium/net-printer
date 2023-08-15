@@ -101,11 +101,11 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
                             </Select>
                         </FormControl>
                         <FormControl sx={{width: '240px', mt: 4}}>
-                            <InputLabel id="resolution">Странички</InputLabel>
                             <TextField
                                 type="text"
                                 value={pages}
                                 variant="filled"
+                                label="Странички"
                                 onChange={(event) => setPages(event.target.value)}
                             />
                         </FormControl>
