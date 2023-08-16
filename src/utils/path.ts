@@ -1,16 +1,17 @@
 import { join } from 'path';
-import { cwd } from 'process';
+
+const GENERAL_PATH = '/opt/net-printer';
 
 function getPrintedFilesPath() {
-    return join(cwd(), 'files', 'prints');
+    return join(GENERAL_PATH, 'files', 'prints');
 }
 
 function getScannedFilesPath() {
-    return join(cwd(), 'files', 'scans');
+    return join(GENERAL_PATH, 'files', 'scans');
 }
 
 function getStaticFilesPath() {
-    return join(cwd(), 'front-end', 'dist');
+    return join(GENERAL_PATH, 'front-end', 'dist');
 }
 
 export { getPrintedFilesPath, getScannedFilesPath, getStaticFilesPath };
