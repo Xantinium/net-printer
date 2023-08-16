@@ -89,7 +89,7 @@ const HomePage: React.FC = () => {
                         startIcon={<UploadFile />}
                         loading={uploadState === 1}
                     >
-                        Upload File
+                        Загрузить файлик
                         <input
                             type="file"
                             hidden
