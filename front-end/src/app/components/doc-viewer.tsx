@@ -24,6 +24,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
     const [open, setOpen] = useState(false);
     const [resolution, setResolution] = useState<Resolution>(getInitialResolution());
     const [pages, setPages] = useState('');
+    const [copyNum, setCopyNum] = useState('1');
 
     const deleteFile = async () => {
         await fetch(`/api/remove_print?name=${fileInfo.name}`);
@@ -41,7 +42,7 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
 
     const printFile = () => {
         setOpen(false);
-        fetch(`/api/print?name=${fileInfo.name}&timestamp=${Date.now()}&pages=${pages}&resolution=${resolution}`);
+        fetch(`/api/print?name=${fileInfo.name}&timestamp=${Date.now()}&pages=${pages}&resolution=${resolution}&copy_num=${copyNum}`);
     };
 
     return <>
@@ -114,6 +115,15 @@ const DocViewer: React.FC<DocViewerProps> = (props) => {
                                 variant="filled"
                                 label="Странички"
                                 onChange={(event) => setPages(event.target.value)}
+                            />
+                        </FormControl>
+                        <FormControl sx={{width: '240px', mt: 4}}>
+                            <TextField
+                                type="number"
+                                value={copyNum}
+                                variant="filled"
+                                label="Количество копий"
+                                onChange={(event) => setCopyNum(event.target.value)}
                             />
                         </FormControl>
                     </Box>

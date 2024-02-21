@@ -6,6 +6,7 @@ export type PrintOptions = {
 	fileName: string
 	resolution: string
 	pages: string
+    copy_num: number
 };
 
 async function createPrintProcess(command: string, args: string[]): Promise<string | null> {
@@ -41,8 +42,14 @@ async function createPrintProcess(command: string, args: string[]): Promise<stri
 }
 
 function print(options: PrintOptions) {
+    let copyNum = Number(options.copy_num);
+    copyNum = isNaN(copyNum) ? 1 : Math.min(Math.max(copyNum, 1), 50);
+
     const args = [
         `-d ${CONFIG.PRINTER_NAME}`,
+        `-n ${copyNum}`,
+        '-o print-quality=5',
+        '-o outputorder=reverse',
         '-o media=A4',
         options.pages === '' ? null : `-o page-ranges=${options.pages}`,
         `-o Resolution=${options.resolution}`,

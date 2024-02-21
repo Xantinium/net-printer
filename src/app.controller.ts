@@ -19,6 +19,7 @@ type PrintQuery = {
 	name: string
 	pages: string
 	resolution: string
+	copy_num: number
 };
 
 type RemoveFileQuery = {
@@ -48,6 +49,7 @@ export class AppController {
 			fileName: query.name,
 			resolution: query.resolution,
 			pages: query.pages,
+			copy_num: query.copy_num,
 		});
 	}
 
