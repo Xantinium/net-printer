@@ -12,7 +12,7 @@ export function scan(props: ScanProps) {
     const { resolution } = props;
 
     const fileName = `${Date.now()}.jpg`;
-    const command = `scanimage --device-name=${CONFIG.PRINTER_NAME} --format=jpeg --resolution=${resolution} > ${getScannedFilesPath()}/${fileName}`;
+    const command = `scanimage --device-name=${CONFIG.PRINTER_NAME_SCAN} --format=jpeg --resolution=${resolution} > ${getScannedFilesPath()}/${fileName}`;
     
     const promise = new Promise<void>((resolve, reject) => {
         const process = exec(command);
