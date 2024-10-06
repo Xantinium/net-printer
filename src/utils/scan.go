@@ -16,14 +16,13 @@ func Scan(options ScanOptions) error {
 		"--resolution=600",
 		fmt.Sprintf("--device-name=\"%s\"", options.Printer),
 		">",
-		fmt.Sprint("\"%s\"", options.FileName),
+		fmt.Sprintf("\"%s\"", options.FileName),
 	}
 
 	cmd := exec.Command("scanimage", args...)
 	fmt.Println("INFO", cmd.String())
 
-	stdout, err := cmd.Output()
-	fmt.Println("INFO", string(stdout))
+	err := cmd.Run()
 	if err != nil {
 		fmt.Println("ERROR", err.Error())
 	}

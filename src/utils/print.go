@@ -34,5 +34,13 @@ func PrintFile(options PrintFileOptions) error {
 
 	args = append(args, options.FileName)
 
-	return exec.Command("lp", args...).Run()
+	cmd := exec.Command("lp", args...)
+	fmt.Println("INFO", cmd.String())
+
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("ERROR", err.Error())
+	}
+
+	return err
 }
