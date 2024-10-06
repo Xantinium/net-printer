@@ -16,7 +16,7 @@ func PrintHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = os.WriteFile(file.Id, file.Content, os.ModeDevice)
+	err = os.WriteFile(utils.GetPath(file.Id), file.Content, os.ModeDevice)
 	if err != nil {
 		respondWithError(w, err)
 		return
@@ -38,7 +38,7 @@ func PrintHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func removeFile(name string) {
-	os.Remove(name)
+	os.Remove(utils.GetPath(name))
 }
 
 func getFile(r *http.Request) (utils.FileItem, error) {

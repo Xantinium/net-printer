@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"os"
+	"path"
 	"time"
 
 	"github.com/ostafen/clover/v2"
@@ -11,6 +12,7 @@ import (
 )
 
 type config struct {
+	RootDir             string `json:"ROOT_DIR"`
 	PrinterNameForScan  string `json:"PRINTER_NAME_FOR_SCAN"`
 	PrinterNameForPrint string `json:"PRINTER_NAME_FOR_PRINT"`
 }
@@ -22,8 +24,12 @@ var (
 	db *clover.DB
 )
 
+func GetPath(subpath string) string {
+	return path.Join(c.RootDir, subpath)
+}
+
 func InitConfig() {
-	fileBytes, err := os.ReadFile("config.json")
+	fileBytes, err := os.ReadFile(GetPath("config.json"))
 	if err != nil {
 		panic(err)
 	}
@@ -33,9 +39,9 @@ func InitConfig() {
 		panic(err)
 	}
 
-	os.Mkdir("data", os.ModeDir)
+	os.Mkdir(GetPath("data"), os.ModeDir)
 
-	db, err = clover.Open("data")
+	db, err = clover.Open(GetPath("data"))
 	if err != nil {
 		panic(err)
 	}

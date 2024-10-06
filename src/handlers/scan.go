@@ -22,7 +22,7 @@ func ScanHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer removeFile(filename)
 
-	fileBytes, err := os.ReadFile(filename)
+	fileBytes, err := os.ReadFile(utils.GetPath(filename))
 	if err != nil {
 		respondWithError(w, err)
 		return
