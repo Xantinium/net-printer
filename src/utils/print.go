@@ -32,7 +32,7 @@ func PrintFile(options PrintFileOptions) error {
 	}
 
 	args = append(args, "--")
-	args = append(args, fmt.Sprintf("\"%s\"", options.FileName))
+	args = append(args, options.FileName)
 
 	cmd := exec.Command("lp", args...)
 	var stderr bytes.Buffer
