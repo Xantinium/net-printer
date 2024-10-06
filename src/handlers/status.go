@@ -26,7 +26,7 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(stdout)
+	fmt.Println(string(stdout))
 
 	res := Response{
 		Status: StatusReady,
