@@ -41,9 +41,9 @@ class HTTPClient {
         return this.request('/files', {});
     }
 
-    print(filename: string, copiesNum: number, pages: string) {
+    print(fileId: string, copiesNum: number, pages: string) {
         return this.request('/print', {
-            filename,
+            file_id: fileId,
             copies_num: copiesNum,
             pages,
         });

@@ -1,5 +1,5 @@
 export type PrintRequest = {
-    filename: string;
+    file_id: string;
     copies_num: number;
     pages: string;
 };

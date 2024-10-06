@@ -118,6 +118,7 @@ export const FilesList = observer((props: FilesListProps) => {
                 {openedFile !== null && (
                     <Viewer
                         file={openedFile}
+                        onFilePrinted={onClose}
                     />
                 )}
             </Modal>
