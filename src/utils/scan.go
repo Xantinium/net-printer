@@ -3,28 +3,27 @@ package utils
 import (
 	"bytes"
 	"fmt"
-	"os"
 	"os/exec"
 )
 
 type ScanOptions struct {
-	// Printer  string
+	Printer  string
 	FileName string
 }
 
 func Scan(options ScanOptions) error {
-	_, err := os.Create(options.FileName)
-	if err != nil {
-		fmt.Println("ERROR", err.Error())
-		return err
-	}
+	// _, err := os.Create(options.FileName)
+	// if err != nil {
+	// 	fmt.Println("ERROR", err.Error())
+	// 	return err
+	// }
 
 	args := []string{
 		"-c",
 		"sudo scanimage",
 		"--format=jpeg",
 		"--resolution=600",
-		// fmt.Sprintf("--device-name=\"%s\"", options.Printer),
+		fmt.Sprintf("--device-name=\"%s\"", options.Printer),
 		fmt.Sprintf("--output-file=\"%s\"", options.FileName),
 	}
 
@@ -33,7 +32,7 @@ func Scan(options ScanOptions) error {
 	cmd.Stderr = &stderr
 	fmt.Println("INFO", cmd.String())
 
-	err = cmd.Run()
+	err := cmd.Run()
 	if err != nil {
 		fmt.Println("ERROR", stderr.String(), err.Error())
 	}

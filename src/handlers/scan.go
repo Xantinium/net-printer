@@ -13,7 +13,7 @@ func ScanHandler(w http.ResponseWriter, r *http.Request) {
 	filename := fmt.Sprintf("%d.jpg", time.Now().Unix())
 
 	err := utils.Scan(utils.ScanOptions{
-		// Printer:  utils.GetPrinterNameForScan(),
+		Printer:  utils.GetPrinterNameForScan(),
 		FileName: utils.GetPath(filename),
 	})
 	if err != nil {
