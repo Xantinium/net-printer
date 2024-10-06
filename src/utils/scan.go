@@ -20,6 +20,10 @@ func Scan(options ScanOptions) error {
 	}
 
 	stdout, err := exec.Command("scanimage", args...).Output()
-	fmt.Println(stdout)
+	fmt.Println(string(stdout))
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	return err
 }
