@@ -26,7 +26,7 @@ func Scan(options ScanOptions) error {
 		fmt.Sprintf("--output-file=\"%s\"", options.FileName),
 	}
 
-	cmd := exec.Command("scanimage", args...)
+	cmd := exec.Command("sudo scanimage", args...)
 	var stderr bytes.Buffer
 	cmd.Stderr = &stderr
 	fmt.Println("INFO", cmd.String())
