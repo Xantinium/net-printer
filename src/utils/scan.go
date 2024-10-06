@@ -19,14 +19,12 @@ func Scan(options ScanOptions) error {
 	}
 
 	args := []string{
-		"-c",
-		"sudo scanimage",
 		"--format=jpeg",
 		"--resolution=600",
-		fmt.Sprintf("--output-file=\"%s\"", options.FileName),
+		fmt.Sprintf("--output-file=%s", options.FileName),
 	}
 
-	cmd := exec.Command("/bin/sh", args...)
+	cmd := exec.Command("scanimage", args...)
 	var stderr bytes.Buffer
 	cmd.Stderr = &stderr
 	fmt.Println("INFO", cmd.String())
