@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"bytes"
 	"fmt"
 	"os/exec"
 )
@@ -20,11 +21,13 @@ func Scan(options ScanOptions) error {
 	}
 
 	cmd := exec.Command("scanimage", args...)
+	var stderr bytes.Buffer
+	cmd.Stderr = &stderr
 	fmt.Println("INFO", cmd.String())
 
 	err := cmd.Run()
 	if err != nil {
-		fmt.Println("ERROR", err.Error())
+		fmt.Println("ERROR", stderr.String())
 	}
 
 	return err
