@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"bytes"
 	"fmt"
 	"os/exec"
 )
@@ -35,11 +36,15 @@ func PrintFile(options PrintFileOptions) error {
 	args = append(args, fmt.Sprintf("\"%s\"", options.FileName))
 
 	cmd := exec.Command("lp", args...)
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
 	fmt.Println("INFO", cmd.String())
 
 	err := cmd.Run()
 	if err != nil {
-		fmt.Println("ERROR", err.Error())
+		fmt.Println("ERROR", err.Error(), stderr.String(), stdout.String())
 	}
 
 	return err

@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 	"os"
 	"strconv"
@@ -22,7 +21,6 @@ func PrintHandler(w http.ResponseWriter, r *http.Request) {
 		respondWithError(w, err)
 		return
 	}
-	fmt.Println("INFO", "Temp file created")
 	// defer removeFile(file.Id)
 
 	err = utils.PrintFile(utils.PrintFileOptions{
