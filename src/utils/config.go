@@ -29,7 +29,7 @@ func GetPath(subpath string) string {
 }
 
 func InitConfig() {
-	fileBytes, err := os.ReadFile(GetPath("config.json"))
+	fileBytes, err := os.ReadFile("config.json")
 	if err != nil {
 		panic(err)
 	}
