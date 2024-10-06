@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/xantinium/net-printer/src/utils"
 )
@@ -38,7 +39,9 @@ func PrintHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func removeFile(name string) {
-	os.Remove(utils.GetPath(name))
+	time.AfterFunc(time.Minute*5, func() {
+		os.Remove(utils.GetPath(name))
+	})
 }
 
 func getFile(r *http.Request) (utils.FileItem, error) {
