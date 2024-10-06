@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os/exec"
+	"strings"
 )
 
 type Status string
@@ -20,17 +20,17 @@ type Response struct {
 }
 
 func StatusHandler(w http.ResponseWriter, r *http.Request) {
+	res := Response{Status: StatusUnknown}
+
 	stdout, err := exec.Command("lpstat", "-p").Output()
 	if err != nil {
-		respondWithError(w, err)
-		return
+		res.Status = StatusError
+	} else {
+		if strings.Contains(string(stdout), "enabled") {
+			res.Status = StatusReady
+		}
 	}
 
-	fmt.Println(string(stdout))
-
-	res := Response{
-		Status: StatusReady,
-	}
 	resBytes, err := json.Marshal(res)
 	if err != nil {
 		respondWithError(w, err)
