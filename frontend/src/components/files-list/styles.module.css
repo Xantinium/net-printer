@@ -4,3 +4,7 @@
     overflow-y: auto;
     transform: translate(10%, 10%) scale(1.2);
 }
+
+.image {
+    width: 60vw;
+}
