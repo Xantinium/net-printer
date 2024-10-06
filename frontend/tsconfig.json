@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "target": "ES2020",
+        "jsx": "react-jsx",
+        "esModuleInterop": true,
+        "module": "ES2020",
+        "moduleResolution": "Bundler",
+        "skipLibCheck": true,
+        "experimentalDecorators": true,
+        "useDefineForClassFields": true
+    },
+    "include": [
+        "./src",
+        "./index.ts",
+        "./webpack-config",
+        "./webpack.config.ts",
+        "./declarations.d.ts"
+    ]
+}

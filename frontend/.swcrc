@@ -1,0 +1,19 @@
+{
+    "$schema": "https://swc.rs/schema.json",
+    "jsc": {
+        "target": "es2020",
+        "parser": {
+            "tsx": true,
+            "syntax": "typescript",
+            "decorators": true
+        },
+        "transform": {
+            "react": {
+                "runtime": "automatic"
+            },
+            "legacyDecorator": true,
+            "useDefineForClassFields": true
+        }
+    }
+}
+   

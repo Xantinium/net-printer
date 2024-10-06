@@ -1,0 +1,19 @@
+.viewer {
+    width: 90vw;
+    height: 80vh;
+    display: flex;
+}
+
+.viewer iframe {
+    flex: 1;
+    border: none;
+}
+
+.loader {
+    flex: 1;
+    justify-content: center;
+}
+
+.settings {
+    width: 500px;
+}

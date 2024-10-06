@@ -1,0 +1,6 @@
+.table {
+    max-width: 80vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: translate(10%, 10%) scale(1.2);
+}

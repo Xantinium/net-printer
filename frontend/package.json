@@ -1,0 +1,41 @@
+{
+  "name": "net-printer-frontend",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "webpack serve --env mode=development",
+    "lint": "./node_modules/.bin/eslint ./src",
+    "build": "webpack --env mode=production"
+  },
+  "dependencies": {
+    "@gravity-ui/uikit": "^6.29.0",
+    "mobx": "6.13.1",
+    "mobx-react-lite": "4.0.7",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@gravity-ui/eslint-config": "3.2.0",
+    "@gravity-ui/icons": "^2.11.0",
+    "@swc-node/loader": "1.5.12",
+    "@swc/core": "1.7.11",
+    "@swc/register": "0.1.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "@typescript-eslint/eslint-plugin": "7.16.0",
+    "@typescript-eslint/parser": "7.16.0",
+    "css-loader": "7.1.2",
+    "eslint": "8.57.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-webpack-plugin": "4.2.0",
+    "fork-ts-checker-webpack-plugin": "9.0.2",
+    "mini-css-extract-plugin": "2.9.0",
+    "terser-webpack-plugin": "5.3.10",
+    "typescript": "5.5.3",
+    "webpack": "5.93.0",
+    "webpack-cli": "5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  }
+}

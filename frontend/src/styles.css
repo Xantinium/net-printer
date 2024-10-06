@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+}
+
+#root {
+    gap: 24px;
+    display: flex;
+    height: 100vh;
+}
+
+#root > div {
+    padding: 16px 48px;
+}
+
+.sidebar {
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--g-color-text-dark-primary);
+}
+
+.sidebar > div:first-child {
+    display: flex;
+    align-items: center;
+}
+
+.favicon {
+    margin-right: 8px;
+    filter: invert(100%);
+}
