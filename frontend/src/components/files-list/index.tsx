@@ -138,6 +138,7 @@ export const FilesList = observer((props: FilesListProps) => {
                 {openedFile !== null && (
                     <img
                         alt={openedFile.name}
+                        className={styles.image}
                         src={`data:image/jpeg;base64,${openedFile.content}`}
                     />
                 )}
