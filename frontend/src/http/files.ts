@@ -11,8 +11,6 @@ export type FileItem = {
     content: string;
 };
 
-export type FilesRequest = {
-    type: FilesTypes;
-};
+export type FilesRequest = {};
 
 export type FilesResponse = FileItem[];

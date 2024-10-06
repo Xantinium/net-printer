@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import { httpClient } from './http';
-import { FileItem, FilesTypes } from './http/files';
+import { FileItem } from './http/files';
 
 type SelectedFile = {
     name: string;
@@ -12,14 +12,10 @@ export class AppStore {
     private selectedFile: SelectedFile | null;
 
     @observable
-    private filesCategory: FilesTypes;
-
-    @observable
     private files: FileItem[];
 
     constructor() {
         this.selectedFile = null;
-        this.filesCategory = FilesTypes.DOCUMENT;
         this.files = [];
 
         this.reloadFiles();
@@ -70,7 +66,7 @@ export class AppStore {
 
     @action.bound
     private async reloadFiles() {
-        const response = await httpClient.getFiles(this.filesCategory);
+        const response = await httpClient.getFiles();
         if (response instanceof Error) {
             console.log(response);
             return;

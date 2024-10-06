@@ -5,7 +5,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/ostafen/clover"
+	"github.com/ostafen/clover/v2"
+	"github.com/ostafen/clover/v2/document"
+	"github.com/ostafen/clover/v2/query"
 )
 
 type config struct {
@@ -83,14 +85,14 @@ type SaveFileOptions struct {
 }
 
 func SaveFile(options SaveFileOptions) error {
-	document := clover.NewDocument()
+	doc := document.NewDocument()
 
-	document.Set("name", options.Name)
-	document.Set("category", options.Category)
-	document.Set("created_at", time.Now().Unix())
-	document.Set("content", options.Content)
+	doc.Set("name", options.Name)
+	doc.Set("category", options.Category)
+	doc.Set("created_at", time.Now().Unix())
+	doc.Set("content", options.Content)
 
-	_, err := db.InsertOne(MAIN_COLLECTION, document)
+	_, err := db.InsertOne(MAIN_COLLECTION, doc)
 	if err != nil {
 		return err
 	}
@@ -99,38 +101,38 @@ func SaveFile(options SaveFileOptions) error {
 }
 
 func RemoveFile(id string) error {
-	return db.Query(MAIN_COLLECTION).DeleteById(id)
+	return db.DeleteById(MAIN_COLLECTION, id)
 }
 
-func convertFileDocument(document *clover.Document) FileItem {
+func convertFileDocument(doc *document.Document) FileItem {
 	return FileItem{
-		Id:        document.Get("_id").(string),
-		Name:      document.Get("name").(string),
-		Category:  FileCategory(document.Get("category").(int64)),
-		CreatedAt: document.Get("created_at").(int64),
-		Content:   document.Get("content").([]byte),
+		Id:        doc.Get("_id").(string),
+		Name:      doc.Get("name").(string),
+		Category:  FileCategory(doc.Get("category").(int64)),
+		CreatedAt: doc.Get("created_at").(int64),
+		Content:   doc.Get("content").([]byte),
 	}
 }
 
 func GetFile(id string) (FileItem, error) {
-	document, err := db.Query(MAIN_COLLECTION).FindById(id)
+	doc, err := db.FindById(MAIN_COLLECTION, id)
 	if err != nil {
 		return FileItem{}, err
 	}
 
-	return convertFileDocument(document), nil
+	return convertFileDocument(doc), nil
 }
 
-func GetFiles(category FileCategory) ([]FileItem, error) {
-	documents, err := db.Query(MAIN_COLLECTION).Where(clover.Field("category").Eq(category)).FindAll()
+func GetFiles() ([]FileItem, error) {
+	docs, err := db.FindAll(query.NewQuery(MAIN_COLLECTION))
 	if err != nil {
 		return nil, err
 	}
 
-	files := make([]FileItem, len(documents))
+	files := make([]FileItem, len(docs))
 
-	for i, document := range documents {
-		files[i] = convertFileDocument(document)
+	for i, doc := range docs {
+		files[i] = convertFileDocument(doc)
 	}
 
 	return files, nil

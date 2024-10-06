@@ -1,5 +1,5 @@
 import { StatusRequest, StatusResponse } from './status';
-import { FilesRequest, FilesResponse, FilesTypes } from './files';
+import { FilesRequest, FilesResponse } from './files';
 import { PrintRequest, PrintResponse } from './print';
 import { ScanRequest, ScanResponse } from './scan';
 import { FileUploadRequest, FileUploadResponse } from './file-upload';
@@ -37,8 +37,8 @@ class HTTPClient {
         return this.request('/status', {});
     }
 
-    getFiles(type: FilesTypes) {
-        return this.request('/files', { type });
+    getFiles() {
+        return this.request('/files', {});
     }
 
     print(filename: string, copiesNum: number, pages: string) {
