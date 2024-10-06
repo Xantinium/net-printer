@@ -14,8 +14,6 @@ type PrintFileOptions struct {
 
 func PrintFile(options PrintFileOptions) error {
 	args := []string{
-		"-c",
-		"sudo lp",
 		"-o print-quality=5",
 		"-o outputorder=reverse",
 		"-o media=A4",
@@ -36,7 +34,7 @@ func PrintFile(options PrintFileOptions) error {
 	args = append(args, "--")
 	args = append(args, fmt.Sprintf("\"%s\"", options.FileName))
 
-	cmd := exec.Command("/bin/sh", args...)
+	cmd := exec.Command("lp", args...)
 	var stderr bytes.Buffer
 	cmd.Stderr = &stderr
 	fmt.Println("INFO", cmd.String())
