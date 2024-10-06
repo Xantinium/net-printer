@@ -26,7 +26,7 @@ func PrintHandler(w http.ResponseWriter, r *http.Request) {
 
 	err = utils.PrintFile(utils.PrintFileOptions{
 		Printer:   utils.GetPrinterNameForPrint(),
-		FileName:  file.Id,
+		FileName:  utils.GetPath(file.Id),
 		Pages:     getPages(r),
 		CopiesNum: getCopiesNum(r),
 	})
