@@ -18,7 +18,7 @@ func PrintFile(options PrintFileOptions) error {
 		"-o outputorder=reverse",
 		"-o media=A4",
 		"-o Resolution=600dpi",
-		fmt.Sprintf("-d %s", options.Printer),
+		fmt.Sprintf("-d \"%s\"", options.Printer),
 		fmt.Sprintf("-n %d", options.CopiesNum),
 	}
 
@@ -29,10 +29,10 @@ func PrintFile(options PrintFileOptions) error {
 	case "even":
 		args = append(args, "-o page-set=even")
 	default:
-		args = append(args, fmt.Sprintf("-o page-ranges=%s", options.Pages))
+		args = append(args, fmt.Sprintf("-o page-ranges=\"%s\"", options.Pages))
 	}
 
-	args = append(args, options.FileName)
+	args = append(args, fmt.Sprintf("\"%s\"", options.FileName))
 
 	cmd := exec.Command("lp", args...)
 	fmt.Println("INFO", cmd.String())
