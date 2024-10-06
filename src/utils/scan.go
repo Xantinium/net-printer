@@ -3,6 +3,7 @@ package utils
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"os/exec"
 )
 
@@ -12,6 +13,12 @@ type ScanOptions struct {
 }
 
 func Scan(options ScanOptions) error {
+	_, err := os.Create(options.FileName)
+	if err != nil {
+		fmt.Println("ERROR", err.Error())
+		return err
+	}
+
 	args := []string{
 		"--format=jpeg",
 		"--resolution=600",
@@ -24,7 +31,7 @@ func Scan(options ScanOptions) error {
 	cmd.Stderr = &stderr
 	fmt.Println("INFO", cmd.String())
 
-	err := cmd.Run()
+	err = cmd.Run()
 	if err != nil {
 		fmt.Println("ERROR", stderr.String())
 	}
