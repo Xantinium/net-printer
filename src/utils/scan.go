@@ -14,18 +14,18 @@ func Scan(options ScanOptions) error {
 	args := []string{
 		"--format=jpeg",
 		"--resolution=600",
-		fmt.Sprintf("--device-name=%s", options.Printer),
+		fmt.Sprintf("--device-name=\"%s\"", options.Printer),
 		">",
-		options.FileName,
+		fmt.Sprint("\"%s\"", options.FileName),
 	}
 
 	cmd := exec.Command("scanimage", args...)
-	fmt.Println(cmd.String())
+	fmt.Println("INFO", cmd.String())
 
 	stdout, err := cmd.Output()
-	fmt.Println(string(stdout))
+	fmt.Println("INFO", string(stdout))
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println("ERROR", err.Error())
 	}
 
 	return err

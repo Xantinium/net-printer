@@ -14,7 +14,7 @@ func ScanHandler(w http.ResponseWriter, r *http.Request) {
 
 	err := utils.Scan(utils.ScanOptions{
 		Printer:  utils.GetPrinterNameForScan(),
-		FileName: filename,
+		FileName: utils.GetPath(filename),
 	})
 	if err != nil {
 		respondWithError(w, err)
