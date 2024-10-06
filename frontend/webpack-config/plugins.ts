@@ -1,3 +1,4 @@
+import HTMLPlugin from 'html-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { ProgressPlugin, WebpackPluginInstance, optimize } from 'webpack';
@@ -8,8 +9,12 @@ export function getWebpackPlugins(env: Env): WebpackPluginInstance[] {
     const isDev = env.mode === Mode.DEV;
 
     const plugins: WebpackPluginInstance[] = [
+        new HTMLPlugin({
+            title: 'Принтер коськи',
+            favicon: 'public/favicon.svg',
+        }),
         new MiniCssExtractPlugin({
-            filename: 'styles.css',
+            filename: 'static/styles.css',
             ignoreOrder: true,
         }),
         new ForkTsCheckerWebpackPlugin({

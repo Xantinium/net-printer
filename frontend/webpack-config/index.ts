@@ -14,7 +14,7 @@ export function getWebpackConfig(env: Env): Configuration {
         output: {
             clean: true,
             path: path.join(__dirname, '..', 'dist'),
-            filename: 'main.js',
+            filename: 'static/main.js',
         },
         target: 'web',
         mode: env.mode,

@@ -4,3 +4,4 @@ config.json
 main
 node_modules
 .swc
+dist

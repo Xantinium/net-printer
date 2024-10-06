@@ -34,6 +34,9 @@ export function getWebpackLoaders(env: Env): RuleSetRule[] {
         {
             test: /\.svg$/i,
             type: 'asset/resource',
+            generator: {
+                filename: 'static/[name][ext]',
+            },
         },
     ];
 
