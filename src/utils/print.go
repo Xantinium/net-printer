@@ -42,7 +42,7 @@ func PrintFile(options PrintFileOptions) error {
 
 	err := cmd.Run()
 	if err != nil {
-		fmt.Println("ERROR", stderr.String())
+		fmt.Println("ERROR", stderr.String(), err.Error())
 	}
 
 	return err

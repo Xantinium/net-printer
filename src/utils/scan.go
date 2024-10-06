@@ -26,14 +26,14 @@ func Scan(options ScanOptions) error {
 		fmt.Sprintf("--output-file=\"%s\"", options.FileName),
 	}
 
-	cmd := exec.Command("sudo scanimage", args...)
+	cmd := exec.Command("sudo /usr/bin/scanimage", args...)
 	var stderr bytes.Buffer
 	cmd.Stderr = &stderr
 	fmt.Println("INFO", cmd.String())
 
 	err = cmd.Run()
 	if err != nil {
-		fmt.Println("ERROR", stderr.String())
+		fmt.Println("ERROR", stderr.String(), err.Error())
 	}
 
 	return err
