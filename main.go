@@ -13,11 +13,14 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/api/scan", handlers.WithRecover(handlers.ScanHandler))
-	mux.HandleFunc("/api/print", handlers.WithRecover(handlers.PrintHandler))
-	mux.HandleFunc("/api/files", handlers.WithRecover(handlers.FilesHandler))
-	mux.HandleFunc("/api/file_upload", handlers.WithRecover(handlers.FileUploadHandler))
-	mux.HandleFunc("/api/file_remove", handlers.WithRecover(handlers.FileRemoveHandler))
+	handlers.RegisterHandlers(mux, map[string]http.HandlerFunc{
+		"/api/scan":        handlers.ScanHandler,
+		"/api/print":       handlers.PrintHandler,
+		"/api/files":       handlers.FilesHandler,
+		"/api/file_upload": handlers.FileUploadHandler,
+		"/api/file_remove": handlers.FileRemoveHandler,
+		"/api/status":      handlers.StatusHandler,
+	})
 
 	err := http.ListenAndServe(":80", mux)
 	if err != nil {

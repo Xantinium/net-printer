@@ -5,6 +5,21 @@ import (
 	"net/http"
 )
 
+type CustomHandler struct {
+	fileServer http.Handler
+	handlers   map[string]http.HandlerFunc
+}
+
+func (ch *CustomHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	handler, exists := ch.handlers[r.URL.Path]
+	if exists {
+		withRecover(handler)(w, r)
+		return
+	}
+
+	ch.fileServer.ServeHTTP(w, r)
+}
+
 func respondWithError(w http.ResponseWriter, err error) {
 	w.WriteHeader(http.StatusInternalServerError)
 	w.Write([]byte(err.Error()))
@@ -15,7 +30,7 @@ func respondWithNoData(w http.ResponseWriter) {
 	w.Write([]byte("{}"))
 }
 
-func WithRecover(handler func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter, *http.Request) {
+func withRecover(handler func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			r := recover()
@@ -36,4 +51,11 @@ func WithRecover(handler func(http.ResponseWriter, *http.Request)) func(http.Res
 
 		handler(w, r)
 	}
+}
+
+func RegisterHandlers(mux *http.ServeMux, handlers map[string]http.HandlerFunc) {
+	mux.Handle("/", &CustomHandler{
+		fileServer: http.FileServer(http.Dir("frontend/dist")),
+		handlers:   handlers,
+	})
 }

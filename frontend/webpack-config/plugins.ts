@@ -11,7 +11,7 @@ export function getWebpackPlugins(env: Env): WebpackPluginInstance[] {
     const plugins: WebpackPluginInstance[] = [
         new HTMLPlugin({
             title: 'Принтер коськи',
-            favicon: 'public/favicon.svg',
+            template: 'public/index.html',
         }),
         new MiniCssExtractPlugin({
             filename: 'static/styles.css',
