@@ -21,7 +21,7 @@ func PrintHandler(w http.ResponseWriter, r *http.Request) {
 		respondWithError(w, err)
 		return
 	}
-	// defer removeFile(file.Id)
+	defer removeFile(file.Id)
 
 	err = utils.PrintFile(utils.PrintFileOptions{
 		Printer:   utils.GetPrinterNameForPrint(),
