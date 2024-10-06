@@ -16,8 +16,7 @@ func Scan(options ScanOptions) error {
 		"--format=jpeg",
 		"--resolution=600",
 		// fmt.Sprintf("--device-name=\"%s\"", options.Printer),
-		">",
-		fmt.Sprintf("\"%s\"", options.FileName),
+		fmt.Sprintf("--output-file=\"%s\"", options.FileName),
 	}
 
 	cmd := exec.Command("scanimage", args...)
