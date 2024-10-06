@@ -33,6 +33,8 @@ func InitConfig() {
 		panic(err)
 	}
 
+	os.Mkdir("data", os.ModeDir)
+
 	db, err = clover.Open("data")
 	if err != nil {
 		panic(err)
