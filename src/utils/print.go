@@ -33,6 +33,7 @@ func PrintFile(options PrintFileOptions) error {
 		args = append(args, fmt.Sprintf("-o page-ranges=\"%s\"", options.Pages))
 	}
 
+	args = append(args, "--")
 	args = append(args, fmt.Sprintf("\"%s\"", options.FileName))
 
 	cmd := exec.Command("/bin/sh", args...)
