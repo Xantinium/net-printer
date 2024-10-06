@@ -1,6 +1,6 @@
 export enum FilesTypes {
-    IMAGE = 'image',
-    DOCUMENT = 'document',
+    IMAGE = 0,
+    DOCUMENT = 1,
 }
 
 export type FileItem = {

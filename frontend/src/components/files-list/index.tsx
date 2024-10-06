@@ -63,11 +63,13 @@ export const FilesList = observer((props: FilesListProps) => {
 
     const files = getFiles();
 
-    const [open, setOpen] = useState(false);
+    const [docOpen, setDocOpen] = useState(false);
+    const [imageOpen, setImageOpen] = useState(false);
     const [openedFile, setOpenedFile] = useState<FileItem | null>(null);
 
     const onClose = useCallback(() => {
-        setOpen(false);
+        setDocOpen(false);
+        setImageOpen(false);
         setTimeout(() => setOpenedFile(null), 300);
     }, []);
 
@@ -86,8 +88,15 @@ export const FilesList = observer((props: FilesListProps) => {
                 const file = getFiles().find((el) => el.id === item.id);
 
                 if (file) {
-                    setOpen(true);
                     setOpenedFile(file);
+
+                    if (file.category === FilesTypes.DOCUMENT) {
+                        setDocOpen(true);
+                    }
+
+                    if (file.category === FilesTypes.IMAGE) {
+                        setImageOpen(true);
+                    }
                 }
             },
         },
@@ -112,13 +121,24 @@ export const FilesList = observer((props: FilesListProps) => {
                 rowActionsSize="l"
             />
             <Modal
-                open={open}
+                open={docOpen}
                 onClose={onClose}
             >
                 {openedFile !== null && (
                     <Viewer
                         file={openedFile}
                         onFilePrinted={onClose}
+                    />
+                )}
+            </Modal>
+            <Modal
+                open={imageOpen}
+                onClose={onClose}
+            >
+                {openedFile !== null && (
+                    <img
+                        alt={openedFile.name}
+                        src={`data:image/jpeg;base64,${openedFile.content}`}
                     />
                 )}
             </Modal>
