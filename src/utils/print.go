@@ -7,7 +7,7 @@ import (
 )
 
 type PrintFileOptions struct {
-	Printer   string
+	// Printer   string
 	FileName  string
 	Pages     string
 	CopiesNum int
@@ -19,7 +19,7 @@ func PrintFile(options PrintFileOptions) error {
 		"-o outputorder=reverse",
 		"-o media=A4",
 		"-o Resolution=600dpi",
-		fmt.Sprintf("-d \"%s\"", options.Printer),
+		// fmt.Sprintf("-d \"%s\"", options.Printer),
 		fmt.Sprintf("-n %d", options.CopiesNum),
 	}
 

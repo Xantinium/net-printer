@@ -7,7 +7,7 @@ import (
 )
 
 type ScanOptions struct {
-	Printer  string
+	// Printer  string
 	FileName string
 }
 
@@ -15,7 +15,7 @@ func Scan(options ScanOptions) error {
 	args := []string{
 		"--format=jpeg",
 		"--resolution=600",
-		fmt.Sprintf("--device-name=\"%s\"", options.Printer),
+		// fmt.Sprintf("--device-name=\"%s\"", options.Printer),
 		">",
 		fmt.Sprintf("\"%s\"", options.FileName),
 	}
