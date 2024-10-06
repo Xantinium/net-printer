@@ -3,6 +3,8 @@ package handlers
 import (
 	"errors"
 	"net/http"
+
+	"github.com/xantinium/net-printer/src/utils"
 )
 
 type CustomHandler struct {
@@ -55,7 +57,7 @@ func withRecover(handler func(http.ResponseWriter, *http.Request)) func(http.Res
 
 func RegisterHandlers(mux *http.ServeMux, handlers map[string]http.HandlerFunc) {
 	mux.Handle("/", &CustomHandler{
-		fileServer: http.FileServer(http.Dir("frontend/dist")),
+		fileServer: http.FileServer(http.Dir(utils.GetPath("frontend/dist"))),
 		handlers:   handlers,
 	})
 }

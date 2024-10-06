@@ -19,5 +19,7 @@ func Scan(options ScanOptions) error {
 		options.FileName,
 	}
 
-	return exec.Command("scanimage", args...).Run()
+	stdout, err := exec.Command("scanimage", args...).Output()
+	fmt.Println(stdout)
+	return err
 }
