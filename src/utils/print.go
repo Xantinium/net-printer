@@ -7,7 +7,6 @@ import (
 )
 
 type PrintFileOptions struct {
-	Printer   string
 	FileName  string
 	Pages     string
 	CopiesNum int
@@ -15,11 +14,12 @@ type PrintFileOptions struct {
 
 func PrintFile(options PrintFileOptions) error {
 	args := []string{
+		"-c",
+		"sudo lp",
 		"-o print-quality=5",
 		"-o outputorder=reverse",
 		"-o media=A4",
 		"-o Resolution=600dpi",
-		fmt.Sprintf("-d \"%s\"", options.Printer),
 		fmt.Sprintf("-n %d", options.CopiesNum),
 	}
 
@@ -33,10 +33,9 @@ func PrintFile(options PrintFileOptions) error {
 		args = append(args, fmt.Sprintf("-o page-ranges=\"%s\"", options.Pages))
 	}
 
-	args = append(args, "--")
 	args = append(args, fmt.Sprintf("\"%s\"", options.FileName))
 
-	cmd := exec.Command("lp", args...)
+	cmd := exec.Command("/bin/sh", args...)
 	var stderr bytes.Buffer
 	cmd.Stderr = &stderr
 	fmt.Println("INFO", cmd.String())

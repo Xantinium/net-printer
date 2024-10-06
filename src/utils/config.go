@@ -12,9 +12,7 @@ import (
 )
 
 type config struct {
-	RootDir             string `json:"ROOT_DIR"`
-	PrinterNameForScan  string `json:"PRINTER_NAME_FOR_SCAN"`
-	PrinterNameForPrint string `json:"PRINTER_NAME_FOR_PRINT"`
+	RootDir string `json:"ROOT_DIR"`
 }
 
 const MAIN_COLLECTION = "main"
@@ -61,14 +59,6 @@ func InitConfig() {
 
 func CloseDB() {
 	db.Close()
-}
-
-func GetPrinterNameForScan() string {
-	return c.PrinterNameForScan
-}
-
-func GetPrinterNameForPrint() string {
-	return c.PrinterNameForPrint
 }
 
 type FileCategory int64

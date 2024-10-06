@@ -8,7 +8,6 @@ import (
 )
 
 type ScanOptions struct {
-	Printer  string
 	FileName string
 }
 
@@ -24,7 +23,6 @@ func Scan(options ScanOptions) error {
 		"sudo scanimage",
 		"--format=jpeg",
 		"--resolution=600",
-		fmt.Sprintf("--device-name=\"%s\"", options.Printer),
 		fmt.Sprintf("--output-file=\"%s\"", options.FileName),
 	}
 
