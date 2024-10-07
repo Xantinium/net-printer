@@ -3,29 +3,19 @@ package handlers
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/xantinium/net-printer/src/utils"
 )
 
 func ScanHandler(w http.ResponseWriter, r *http.Request) {
+	fileBytes, err := utils.Scan()
+	if err != nil {
+		respondWithError(w, err)
+		return
+	}
+
 	filename := fmt.Sprintf("%d.jpg", time.Now().Unix())
-
-	err := utils.Scan(utils.ScanOptions{
-		FileName: utils.GetPath(filename),
-	})
-	if err != nil {
-		respondWithError(w, err)
-		return
-	}
-	defer removeFile(filename)
-
-	fileBytes, err := os.ReadFile(utils.GetPath(filename))
-	if err != nil {
-		respondWithError(w, err)
-		return
-	}
 
 	err = utils.SaveFile(utils.SaveFileOptions{
 		Name:     filename,

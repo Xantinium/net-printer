@@ -16,6 +16,7 @@ func main() {
 	handlers.RegisterHandlers(mux, map[string]http.HandlerFunc{
 		"/api/scan":        handlers.ScanHandler,
 		"/api/print":       handlers.PrintHandler,
+		"/api/file":        handlers.FileHandler,
 		"/api/files":       handlers.FilesHandler,
 		"/api/file_upload": handlers.FileUploadHandler,
 		"/api/file_remove": handlers.FileRemoveHandler,

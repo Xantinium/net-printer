@@ -44,7 +44,7 @@ func withRecover(handler func(http.ResponseWriter, *http.Request)) func(http.Res
 				case error:
 					err = t
 				default:
-					err = errors.New("Unknown error")
+					err = errors.New("unknown error")
 				}
 
 				respondWithError(w, err)

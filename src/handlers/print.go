@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"errors"
 	"net/http"
 	"os"
 	"strconv"
@@ -41,20 +40,6 @@ func removeFile(name string) {
 	time.AfterFunc(time.Minute*5, func() {
 		os.Remove(utils.GetPath(name))
 	})
-}
-
-func getFile(r *http.Request) (utils.FileItem, error) {
-	fileId := r.URL.Query().Get("file_id")
-	if fileId == "" {
-		return utils.FileItem{}, errors.New("empty file_id param")
-	}
-
-	file, err := utils.GetFile(fileId)
-	if err != nil {
-		return utils.FileItem{}, err
-	}
-
-	return file, nil
 }
 
 func getPages(r *http.Request) string {
