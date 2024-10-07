@@ -1,4 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
+import { toaster } from '@gravity-ui/uikit/toaster-singleton-react-18';
 import { httpClient } from './http';
 import { FileItem } from './http/files';
 
@@ -31,7 +32,13 @@ export class AppStore {
     async scan() {
         const response = await httpClient.scan();
         if (response instanceof Error) {
-            console.log(response);
+            toaster.add({
+                name: 'scan',
+                theme: 'danger',
+                isClosable: true,
+                title: response.name,
+                content: response.message,
+            });
             return;
         }
 
@@ -52,7 +59,13 @@ export class AppStore {
     async removeFile(id: string) {
         const response = await httpClient.removeFile(id);
         if (response instanceof Error) {
-            console.log(response);
+            toaster.add({
+                name: 'remove_file',
+                theme: 'danger',
+                isClosable: true,
+                title: response.name,
+                content: response.message,
+            });
             return;
         }
 
@@ -68,7 +81,13 @@ export class AppStore {
     private async reloadFiles() {
         const response = await httpClient.getFiles();
         if (response instanceof Error) {
-            console.log(response);
+            toaster.add({
+                name: 'get_files',
+                theme: 'danger',
+                isClosable: true,
+                title: response.name,
+                content: response.message,
+            });
             return;
         }
 
@@ -90,7 +109,13 @@ export class AppStore {
         this.resetSelectedFile();
 
         if (response instanceof Error) {
-            console.log(response);
+            toaster.add({
+                name: 'upload_file',
+                theme: 'danger',
+                isClosable: true,
+                title: response.name,
+                content: response.message,
+            });
             return;
         }
 

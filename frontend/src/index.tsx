@@ -1,6 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
 import {
     Button, Icon, Text, ThemeProvider,
+    ToasterComponent,
+    ToasterProvider,
 } from '@gravity-ui/uikit';
 import PrinterIcon from '@gravity-ui/icons/Printer';
 import favicon from '../public/favicon.svg';
@@ -45,31 +47,34 @@ export function App() {
 
     return (
         <ThemeProvider theme="dark">
-            <div className="sidebar">
-                <div>
-                    <img
-                        alt="logo"
-                        src={favicon}
-                        width={48}
-                        className="favicon"
+            <ToasterProvider>
+                <div className="sidebar">
+                    <div>
+                        <img
+                            alt="logo"
+                            src={favicon}
+                            width={48}
+                            className="favicon"
+                        />
+                        <Text variant="header-2">Принтер коськи</Text>
+                    </div>
+                    <FileInput
+                        loading={store.hasSelectedFile}
+                        onChange={store.onFileChange}
                     />
-                    <Text variant="header-2">Принтер коськи</Text>
+                    <ScanButton
+                        scan={store.scan}
+                    />
+                    <PrinterStatus />
                 </div>
-                <FileInput
-                    loading={store.hasSelectedFile}
-                    onChange={store.onFileChange}
-                />
-                <ScanButton
-                    scan={store.scan}
-                />
-                <PrinterStatus />
-            </div>
-            <div>
-                <FilesList
-                    getFiles={store.getFiles}
-                    onFileRemove={store.removeFile}
-                />
-            </div>
+                <div>
+                    <FilesList
+                        getFiles={store.getFiles}
+                        onFileRemove={store.removeFile}
+                    />
+                </div>
+                <ToasterComponent />
+            </ToasterProvider>
         </ThemeProvider>
     );
 }

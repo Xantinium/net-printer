@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import {
-    Modal, Table, TableActionConfig, TableColumnConfig, withTableActions, withTableCopy, withTableSorting,
+    Modal, Table, TableActionConfig, TableColumnConfig, withTableActions, withTableSorting,
 } from '@gravity-ui/uikit';
 import EyeIcon from '@gravity-ui/icons/Eye';
 import TrashBinIcon from '@gravity-ui/icons/TrashBin';
@@ -21,7 +21,7 @@ type TableItem = {
     date: number;
 };
 
-const CustomTable = withTableActions(withTableSorting(withTableCopy<TableItem>(Table)));
+const CustomTable = withTableActions(withTableSorting<TableItem>(Table));
 
 const ICON_STYLE: React.CSSProperties = {
     marginRight: 4,
@@ -64,12 +64,10 @@ export const FilesList = observer((props: FilesListProps) => {
     const files = getFiles();
 
     const [docOpen, setDocOpen] = useState(false);
-    const [imageOpen, setImageOpen] = useState(false);
     const [openedFile, setOpenedFile] = useState<FileItem | null>(null);
 
     const onClose = useCallback(() => {
         setDocOpen(false);
-        setImageOpen(false);
         setTimeout(() => setOpenedFile(null), 300);
     }, []);
 
@@ -95,7 +93,7 @@ export const FilesList = observer((props: FilesListProps) => {
                     }
 
                     if (file.category === FilesTypes.IMAGE) {
-                        setImageOpen(true);
+                        window.open(`/api/file?${file.id}`);
                     }
                 }
             },
@@ -128,18 +126,6 @@ export const FilesList = observer((props: FilesListProps) => {
                     <Viewer
                         file={openedFile}
                         onFilePrinted={onClose}
-                    />
-                )}
-            </Modal>
-            <Modal
-                open={imageOpen}
-                onClose={onClose}
-            >
-                {openedFile !== null && (
-                    <img
-                        alt={openedFile.name}
-                        className={styles.image}
-                        src={`data:image/jpeg;base64,${openedFile.content}`}
                     />
                 )}
             </Modal>

@@ -8,7 +8,6 @@ export type FileItem = {
     name: string;
     category: FilesTypes;
     created_at: number;
-    content: string;
 };
 
 export type FilesRequest = {};

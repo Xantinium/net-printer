@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import {
-    Button, Loader, RadioGroup, Text, TextInput,
+    Button, Loader, RadioGroup, Text, TextInput, useToaster,
 } from '@gravity-ui/uikit';
 import { FileItem } from '../../http/files';
 import { httpClient } from '../../http';
@@ -34,6 +34,7 @@ function getPages(mode: PagesModes, customValue: string) {
 export const Viewer = React.memo((props: ViewerProps) => {
     const { file, onFilePrinted } = props;
 
+    const { add } = useToaster();
     const [loading, setLoading] = useState(true);
     const [copiesNum, setCopiesNum] = useState('1');
     const [pagesMode, setPagesMode] = useState(PagesModes.ALL);
@@ -63,12 +64,18 @@ export const Viewer = React.memo((props: ViewerProps) => {
     const onClick = useCallback(async () => {
         const response = await httpClient.print(file.id, Number(copiesNum), getPages(pagesMode, customPagesMode));
         if (response instanceof Error) {
-            console.log(response);
+            add({
+                name: 'print',
+                theme: 'danger',
+                isClosable: true,
+                title: response.name,
+                content: response.message,
+            });
             return;
         }
 
         onFilePrinted();
-    }, [copiesNum, customPagesMode, file.id, onFilePrinted, pagesMode]);
+    }, [add, copiesNum, customPagesMode, file.id, onFilePrinted, pagesMode]);
 
     return (
         <div className={styles.viewer}>
@@ -76,7 +83,7 @@ export const Viewer = React.memo((props: ViewerProps) => {
             <iframe
                 title={file.name}
                 style={iframeStyle}
-                src={`data:application/pdf;base64,${file.content}`}
+                src={`/api/file?id=${file.id}`}
                 onLoad={onLoad}
             />
             <div className={styles.settings}>
